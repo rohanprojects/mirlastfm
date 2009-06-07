@@ -177,19 +177,20 @@ public class Artist extends MusicEntry {
 
 	/**
 	 * Retrieves the top tags for the given artist.
+	 * Modified to return TopTags and their value
 	 *
 	 * @param artist Artist's name
 	 * @param apiKey The API key
 	 * @return list of top tags
 	 */
-	public static Collection<String> getTopTags(String artist, String apiKey) {
+	public static Map<String, Integer> getTopTags(String artist, String apiKey) {
 		Result result = Caller.getInstance().call("artist.getTopTags", apiKey, "artist", artist);
 		if (!result.isSuccessful())
-			return Collections.emptyList();
+			return new HashMap<String, Integer>();
 		DomElement element = result.getContentElement();
-		List<String> tags = new ArrayList<String>();
+		Map<String, Integer> tags = new HashMap<String, Integer>();
 		for (DomElement domElement : element.getChildren("tag")) {
-			tags.add(domElement.getChildText("name"));
+			tags.put(domElement.getChildText("name"), Integer.parseInt(domElement.getChildText("count")));
 		}
 		return tags;
 	}

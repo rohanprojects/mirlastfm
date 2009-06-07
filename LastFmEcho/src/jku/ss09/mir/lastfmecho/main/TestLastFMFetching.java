@@ -1,8 +1,12 @@
 package jku.ss09.mir.lastfmecho.main;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import jku.ss09.mir.lastfmecho.bo.LastFMParser;
+import jku.ss09.mir.lastfmecho.bo.MirArtist;
 import net.roarsoftware.lastfm.Album;
 import net.roarsoftware.lastfm.Artist;
 import net.roarsoftware.lastfm.Event;
@@ -33,41 +37,54 @@ public class TestLastFMFetching {
 		
 
 		int idx = 0;
-		System.out.println("----TOP ALBUMS------------");
-		// get top albums of artist
-		Collection<Album> topAlbums = Artist.getTopAlbums(artistString,LastFMParser.getApiKey());
-		System.out.println(artistString +" hast albums:" + topAlbums.size());
-		for (Album album : topAlbums) {
-			System.out.println(idx + ": "+ album.getName());
-			idx++;
-		}
+//		System.out.println("----TOP ALBUMS------------");
+//		// get top albums of artist
+//		Collection<Album> topAlbums = Artist.getTopAlbums(artistString,LastFMParser.getApiKey());
+//		System.out.println(artistString +" hast albums:" + topAlbums.size());
+//		for (Album album : topAlbums) {
+//			System.out.println(idx + ": "+ album.getName());
+//			idx++;
+//		}
 		
-		System.out.println("----SIMILAR ARTISTS------------");
-		Collection<Artist> similar = Artist.getSimilar(artistString, LastFMParser.getApiKey());
-		
-		idx = 0;
-		for (Artist artist2 : similar) {
-			System.out.println(idx + ": " + artist2.getName());
-			idx++;
-		}
+//		System.out.println("----SIMILAR ARTISTS------------");
+//		Collection<Artist> similar = Artist.getSimilar(artistString, LastFMParser.getApiKey());
+//		
+//		idx = 0;
+//		for (Artist artist2 : similar) {
+//			System.out.println(idx + ": " + artist2.getName());
+//			idx++;
+//		}
 		
 		System.out.println("----TOP TAGS-----------");
 		idx = 0;
-		Collection<String> topTags = Artist.getTopTags(artistString, LastFMParser.getApiKey());
-		for (String tagString : topTags) {
-			System.out.println(idx + ": " +tagString);
+		Map<String, Integer> topTags = Artist.getTopTags(artistString, LastFMParser.getApiKey());
+		Collection<String> topTagsList = new ArrayList<String>();
+		for (String tagString : topTags.keySet()) {
+			System.out.println(idx + ": " +tagString + " @ " + topTags.get(tagString));
+			if(topTags.get(tagString) > 0)
+				topTagsList.add(tagString);
 			idx++;
 		}
 		
-		System.out.println("----EVENTS -----------");
-		Collection <Event> eventColl = Artist.getEvents(artistString, LastFMParser.getApiKey());
-
-		for (Event event : eventColl) {
-			
-			System.out.println(event.getStartDate().toString() + " | " +event.getTitle() + " |  " +event.getVenue().getCountry() );
-			//Event info = event.getInfo(Integer.toString(event.getId()),LastFMParser.getApiKey());	
-		}
+		MirArtist band = new MirArtist("Wolfgang Amadeus Mozart");
+		MirArtist band2 = new MirArtist("Dark Throne");
+		MirArtist band3 = new MirArtist("The Beatles");
+	
+		band.compareArtistCS(band2);
+		band.compareArtistCS(band3);
 		
+		band.compareArtistED(band2);
+		band.compareArtistED(band3);
+		
+//		System.out.println("----EVENTS -----------");
+//		Collection <Event> eventColl = Artist.getEvents(artistString, LastFMParser.getApiKey());
+//
+//		for (Event event : eventColl) {
+//			
+//			System.out.println(event.getStartDate().toString() + " | " +event.getTitle() + " |  " +event.getVenue().getCountry() );
+//			//Event info = event.getInfo(Integer.toString(event.getId()),LastFMParser.getApiKey());	
+//		}
+//		
 		//		Chart<Artist> chart = User.getWeeklyArtistChart(user, 10, apiKey);
 		//		DateFormat format = DateFormat.getDateInstance();
 		//		String from = format.format(chart.getFrom());
