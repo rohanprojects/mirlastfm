@@ -16,7 +16,7 @@ import jku.ss09.mir.lastfmecho.bo.LastFMParser;
 import jku.ss09.mir.lastfmecho.bo.MusicFileParser;
 import jku.ss09.mir.lastfmecho.bo.MirArtist;
 import jku.ss09.mir.lastfmecho.bo.MirGenre;
-import jku.ss09.mir.lastfmecho.comirva.utils.TestURLRetrieverLastFM;
+import jku.ss09.mir.lastfmecho.comirva.utils.GoogleUrlRetriever;
 import jku.ss09.mir.lastfmecho.utils.UrlDownloader;
 
 import net.roarsoftware.lastfm.Album;

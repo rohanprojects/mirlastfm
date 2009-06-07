@@ -10,6 +10,7 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
+
 import jku.ss09.mir.lastfmecho.bo.MirArtist;
 	
 /**
@@ -17,7 +18,7 @@ import jku.ss09.mir.lastfmecho.bo.MirArtist;
  * 
  * @author Markus Schedl
  */
-public class TestURLRetrieverLastFM {
+public class GoogleUrlRetriever {
 	// number of requested web pages
 	private static final int REQUESTED_PAGES = 100;
 	private static final int MAX_RETURNED_PAGES = 100;														// maximum number of returned results by the search engine

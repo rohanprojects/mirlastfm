@@ -1,7 +1,7 @@
 /*
  * Created on 03.08.2007
  */
-package jku.ss09.mir.lastfmecho.comirva.utils;
+package misc;
 
 
 import comirva.util.external.*;

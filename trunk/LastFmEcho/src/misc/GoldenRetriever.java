@@ -1,4 +1,4 @@
-package jku.ss09.mir.lastfmecho.comirva.utils;
+package misc;
 
 import java.io.*;
 import java.util.*;
