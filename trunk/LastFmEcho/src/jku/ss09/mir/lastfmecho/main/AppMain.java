@@ -87,7 +87,7 @@ public class AppMain {
 		 */
 		UrlDownloader urldownloader = new UrlDownloader();
 		//urldownloader.runFile(downloadPath + "urls.dat" ,downloadPath);
-		urldownloader.setMaxPages(20);
+		urldownloader.setMaxPages(50);
 		urldownloader.runDirectory(new File(dirPath + "/data/download/"));
 		
 
