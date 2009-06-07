@@ -80,7 +80,6 @@ public class AppMain {
 //		retriever.run(0,artistStringList);
 //		
 		
-		
 		/**
 		 *  Url Downloader
 		 *  Fetches n files
@@ -90,24 +89,7 @@ public class AppMain {
 		urldownloader.setMaxPages(50);
 		urldownloader.runDirectory(new File(dirPath + "/data/download/"));
 		
-
-		
-		
-		
-		
-		
-
-
-
 		//Playlist playlist = Playlist.create("example playlist", "description", session2);
-
-
-
-
-
-
-
-
 
 
 	}
