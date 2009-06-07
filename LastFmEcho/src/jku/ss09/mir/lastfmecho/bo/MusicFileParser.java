@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
-import jku.ss09.mir.lastfmecho.comirva.utils.TestURLRetrieverLastFM;
+import jku.ss09.mir.lastfmecho.comirva.utils.GoogleUrlRetriever;
 
 public class MusicFileParser {
 
