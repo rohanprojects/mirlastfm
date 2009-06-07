@@ -14,20 +14,33 @@ import java.net.URL;
 import java.net.UnknownHostException;
 
 
+/**
+ * 
+ * A set of methods for downloading html files from urls listed line-wise in a text file 
+ * 
+ * @author jakob
+ *
+ */
 public class UrlDownloader {
-
-
 	
 	private int maxPages;
 
+	
+	public UrlDownloader() {
+		maxPages = 10;
+	}
+	
 	public void setMaxPages(int maxPages) {
 		this.maxPages = maxPages;
 	}
 
-	public UrlDownloader() {
-		maxPages = 10;
-	}
-
+	/**
+	 * 
+	 * Recursively run through a directory and search for (url).dat files containing one url 
+	 * per line. Remove all existing .html files before downloading new ones.  
+	 * 
+	 * @param dir
+	 */
 	public void runDirectory(File dir) {
 		if (dir.isDirectory() && dir.getName().compareTo(".svn") != 0) {
 			String[] children = dir.list();
@@ -45,20 +58,16 @@ public class UrlDownloader {
 		}
 	} 
 
-	public void runFile(String fileName, String targetDir)
-	{
-
+	/**
+	 * 
+	 * retrieve multiple html files from a .dat file containing one url per line   
+	 * 
+	 * @param fileName
+	 * @param targetDir
+	 */
+	public void runFile(String fileName, String targetDir) {
 
 		System.out.println("Downloading files from " + targetDir + "/" +fileName);
-
-		//		//delete all previous html from folder
-		//		if (IOUtils.deleteFilesInDir(targetDir) == false)
-		//		{
-		//			System.out.println("Error: Not all html files could be deleted");
-		//			return;
-		//		}
-		//		
-
 
 		try {
 			File file = new File(fileName);
@@ -69,9 +78,7 @@ public class UrlDownloader {
 			int i = 1;
 			while ((urlString = in.readLine()) != null && i < maxPages+1) {
 				//	             System.out.println(string);
-
 				String targetFileName = targetDir + "/" + i +".html";
-
 				if (downloadUrl(urlString, targetFileName ) == true) {					
 					i++;
 				}
@@ -80,14 +87,15 @@ public class UrlDownloader {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-
 	}
 
-
-
-
-
+	/**
+	 * retrieves content of a url and saves it to a targetFileName
+	 * 
+	 * @param urlString
+	 * @param targetFileName
+	 * @return
+	 */
 	private boolean downloadUrl(String urlString, String targetFileName) {
 		URL urlObject = null;
 
@@ -99,9 +107,7 @@ public class UrlDownloader {
 			System.err.println("Error: " + e.getMessage());
 			return false;
 		}
-
-
-
+		
 		if (urlObject != null) {
 			try 
 			{

@@ -13,6 +13,8 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
 
+import jku.ss09.mir.lastfmecho.utils.IOUtils;
+
 import comirva.data.*;
 import comirva.io.filefilter.HTMLFileFilter;
 import cp.net.Webpage;
@@ -412,9 +414,19 @@ public class TermProfileUtils {
 					// force status bar to be repainted immediately
 					statusBar.paintImmediately(0, 0, statusBar.getWidth(), statusBar.getHeight());
 				}
-				Webpage wp = new Webpage(files[i]);
-				String content = wp.getPlainText();
-				HashtableTool.updateWordsOccurrences(content, tf, null, wp.delimiterstring);
+				
+				System.out.println("Extracting terms from document " + files[i] );
+				//Webpage wp = new Webpage(files[i]);
+				//String content = wp.getPlainText();
+				
+				
+				// Modified lastfmecho 20090602 METHOD1 - easy parser to strip html markup
+//				String content = IOUtils.readTextFile(files[i].getAbsolutePath());				
+//				content = content.replaceAll("\\<.*?\\>", "");
+				// Modified lastfmecho 20090602 METHOD2
+				String content = IOUtils.readHTMLFileRemoveString(files[i].getAbsolutePath());
+
+				HashtableTool.updateWordsOccurrences(content, tf, null, Webpage.delimiterstring);
 //				System.out.println("processing "+ files[i].toString());
 			} catch (Exception e) {
 				e.printStackTrace();
