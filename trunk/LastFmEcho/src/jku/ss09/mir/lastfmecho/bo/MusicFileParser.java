@@ -58,6 +58,7 @@ public class MusicFileParser {
 			MirArtist artist = new MirArtist(artistStringList.get(i));
 			MirGenre genre =  getGenreByName(genreStringList.get(i));
 			artist.setGenre(genre);
+			artistList.add(artist);
 		}
 		
 		
