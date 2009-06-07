@@ -4,7 +4,6 @@
 package jku.ss09.mir.lastfmecho.comirva.utils;
 
 import comirva.config.AnySearchConfig;
-import comirva.io.web.AnySearch;
 import comirva.util.external.TextFormatTool;
 
 import java.io.*;
@@ -20,7 +19,7 @@ import jku.ss09.mir.lastfmecho.bo.MirArtist;
  */
 public class TestURLRetrieverLastFM {
 	// number of requested web pages
-	private static final int REQUESTED_PAGES = 200;
+	private static final int REQUESTED_PAGES = 100;
 	private static final int MAX_RETURNED_PAGES = 100;														// maximum number of returned results by the search engine
 	private static String STORAGE_PATH = System.getProperty("user.dir") + "/data/download/";							// local path to store the crawled web pages
 //	private static String ENTITIES_TO_CRAWL = "C:/Research/Data/amg-artists/artists_reggae.txt";			// local file containing entities to crawls (e.g. artists)

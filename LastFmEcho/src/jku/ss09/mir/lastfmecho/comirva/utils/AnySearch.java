@@ -338,8 +338,9 @@ public class AnySearch {
 			//HTTP1.0
 			//byte[] bytestring = new String("GET " + url.getPath()+ query + " HTTP/1.0\r\n\r\n").getBytes();
 			//HTTP1.1
-			byte[] bytestring 
-				= new String("GET " + url.getPath()+ query + " HTTP/1.1\r\n" + "host: " + url.getHost() + "\r\n\r\n").getBytes();
+		
+				String queryString = new String("GET " + url.getPath()+ query + " HTTP/1.1\r\n" + "host: " + url.getHost() + "\r\n\r\n");
+				byte[] bytestring =queryString.getBytes();
 			try {
 				out.write(bytestring);
 				out.flush();

@@ -1,5 +1,6 @@
 package jku.ss09.mir.lastfmecho.main;
 
+import java.io.File;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
@@ -16,6 +17,7 @@ import jku.ss09.mir.lastfmecho.bo.MusicFileParser;
 import jku.ss09.mir.lastfmecho.bo.MirArtist;
 import jku.ss09.mir.lastfmecho.bo.MirGenre;
 import jku.ss09.mir.lastfmecho.comirva.utils.TestURLRetrieverLastFM;
+import jku.ss09.mir.lastfmecho.utils.UrlDownloader;
 
 import net.roarsoftware.lastfm.Album;
 import net.roarsoftware.lastfm.Artist;
@@ -48,7 +50,7 @@ public class AppMain {
 //		System.out.println("Genres: " + fileParser.getGenreSet().size());
 //		for (MirGenre mirGenre : fileParser.getGenreSet()) {
 //			System.out.println(mirGenre.getName());
-//			for (MirArtist artist: mirGenre.getArtistList())
+////			for (MirArtist artist: mirGenre.getArtistList())
 ////				System.out.println("\t" + artist.getName());
 //		}
 
@@ -57,23 +59,39 @@ public class AppMain {
 		 * An auxiliary class for fetching content from LastFM via 
 		 * User: Jakob Doppler Profile and API Key   
 		 */   
-		LastFMParser lastFmParser = new LastFMParser();
-		String artistString= "Incubus";
-		TestLastFMFetching.testExtractArtistInfo(artistString);
-		
+//		LastFMParser lastFmParser = new LastFMParser();
+//		String artistString= "Incubus";
+//		TestLastFMFetching.testExtractArtistInfo(artistString);
+//		
 		/**
 		 * Google Parser
 		 * maybe get Information from Google Seach Results - With wget/CoMIRVA
+		 * ATTENTION: Google Request for URL RETRIEVING NEEDS ONLY BE DONE ONCE !!! 
 		 */
-
-		List<String> artistStringList = new ArrayList<String>();
-		artistStringList.add("Incubus");
-		artistStringList.add("Mozart");
-		artistStringList.add("Metallica");
 		
-		//retrieve URLS in 
-		TestURLRetrieverLastFM retriever = new TestURLRetrieverLastFM();
-		retriever.run(0,artistStringList);
+
+//		List<String> artistStringList = new ArrayList<String>();
+//		List<MirArtist> artistList = fileParser.getArtistList();
+//		for (MirArtist mirArtist : artistList) {
+//			artistStringList.add(mirArtist.getName());
+//		}
+//		//retrieve URLS in 
+//		TestURLRetrieverLastFM retriever = new TestURLRetrieverLastFM();
+//		retriever.run(0,artistStringList);
+//		
+		
+		
+		/**
+		 *  Url Downloader
+		 *  Fetches n files
+		 */
+		UrlDownloader urldownloader = new UrlDownloader();
+		//urldownloader.runFile(downloadPath + "urls.dat" ,downloadPath);
+		urldownloader.setMaxPages(20);
+		urldownloader.runDirectory(new File(dirPath + "/data/download/"));
+		
+
+		
 		
 		
 		
