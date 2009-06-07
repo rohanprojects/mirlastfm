@@ -96,7 +96,7 @@ public class UrlDownloader {
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
-			System.err.print("Error: " + e.getMessage());
+			System.err.println("Error: " + e.getMessage());
 			return false;
 		}
 
@@ -118,15 +118,15 @@ public class UrlDownloader {
 				bufferedOut.close();
 				// if a specific file in a domain cannot be retrieved e.g. http://www.cc.com/abofefut.htm
 			} catch (FileNotFoundException e) {
-				System.err.print("Error: " + e.getMessage());
+				System.err.println("Error: " + e.getMessage());
 				return false;
 				//  if the domain itself cannot be resolved				
 			} catch (UnknownHostException e) {
-				System.err.print("Error: " + e.getMessage());
+				System.err.println("Error: " + e.getMessage());
 				return false;
 				//  Server returned HTTP response code: 403 for URL: 
 			}  catch (IOException e) {
-				System.err.print("Error: " + e.getMessage());
+				System.err.println("Error: " + e.getMessage());
 				return false;
 			}
 
