@@ -2,6 +2,11 @@ package jku.ss09.mir.lastfmecho.bo;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
+
+import jku.ss09.mir.lastfmecho.bo.feature.Feature;
+import jku.ss09.mir.lastfmecho.bo.feature.FeatureFactory;
+import jku.ss09.mir.lastfmecho.bo.feature.TagCloudFeature;
 
 
 import net.roarsoftware.lastfm.Artist;
@@ -14,10 +19,12 @@ public class MirArtist {
 	private HashMap<String,Integer> topTags;
 	private HashMap<String,Integer> topTagsNorm;
 	
+	private Map<Integer,Feature> featureMap;
 	
 	public MirArtist(String name) {
 		super();
 		this.name = name;
+		featureMap = new HashMap<Integer, Feature>();
 		
 //		setTags((HashMap<String, Integer>)Artist.getTopTags(name, LastFMParser.getApiKey()));
 //		normalizeTags();
@@ -39,6 +46,36 @@ public class MirArtist {
 		return name;
 	}
 	
+	
+	public Feature getFeature(int key) {
+		return featureMap.get(key);
+	}
+	
+	
+	public Feature addFeature(Feature feature) {
+		return featureMap.put(feature.getId(), feature);
+	}
+	
+	/**
+	 * getsTagCloudFeature if it was created for this artist
+	 * 
+	 * @return tagCloudFeature or null if it was not set
+	 */
+	public TagCloudFeature getTagCloudFeature() {
+		Feature feature = getFeature(FeatureFactory.FEATURE_TAGCLOUD);
+		if (feature != null) {
+			if (feature instanceof TagCloudFeature) {
+				return (TagCloudFeature) feature;
+			} else {
+				return null;
+			}
+		}
+		return null;
+		
+	}
+
+
+
 	private void setTags(HashMap<String,Integer> tags){
 		topTags = new HashMap<String,Integer>();
 		Collection<String> tagNames = tags.keySet();
