@@ -17,6 +17,9 @@ import jku.ss09.mir.lastfmecho.bo.LastFMParser;
 import jku.ss09.mir.lastfmecho.bo.MusicFileParser;
 import jku.ss09.mir.lastfmecho.bo.MirArtist;
 import jku.ss09.mir.lastfmecho.bo.MirGenre;
+import jku.ss09.mir.lastfmecho.bo.feature.Feature;
+import jku.ss09.mir.lastfmecho.bo.feature.FeatureFactory;
+import jku.ss09.mir.lastfmecho.bo.feature.TagCloudFeature;
 import jku.ss09.mir.lastfmecho.comirva.utils.GoogleUrlRetriever;
 import jku.ss09.mir.lastfmecho.comirva.utils.TermProfileUtils;
 import jku.ss09.mir.lastfmecho.utils.HTMLFileFilter;
@@ -73,24 +76,24 @@ public class AppMainJakob {
 		 */
 		
 
-		List<String> artistStringList = new ArrayList<String>();
-		List<MirArtist> artistList = fileParser.getArtistList();
-		for (MirArtist mirArtist : artistList) {
-			artistStringList.add(mirArtist.getName());
-		}
-		//retrieve URLS in 
-		GoogleUrlRetriever retriever = new GoogleUrlRetriever();
-		retriever.run(0,artistStringList);
+//		List<String> artistStringList = new ArrayList<String>();
+//		List<MirArtist> artistList = fileParser.getArtistList();
+//		for (MirArtist mirArtist : artistList) {
+//			artistStringList.add(mirArtist.getName());
+//		}
+//		//retrieve URLS in 
+//		GoogleUrlRetriever retriever = new GoogleUrlRetriever();
+//		retriever.run(0,artistStringList);
 		
 		
 		/**
 		 *  Url Downloader
 		 *  Fetches n files
 		 */
-		UrlDownloader urldownloader = new UrlDownloader();
-		//urldownloader.runFile(downloadPath + "urls.dat" ,downloadPath);
-		urldownloader.setMaxPages(50);
-		urldownloader.runDirectory(new File(dirPath + "/data/download/"));
+//		UrlDownloader urldownloader = new UrlDownloader();
+//		//urldownloader.runFile(downloadPath + "urls.dat" ,downloadPath);
+//		urldownloader.setMaxPages(50);
+//		urldownloader.runDirectory(new File(dirPath + "/data/download/"));
 		
 		/**
 		 * Term Extractor 
@@ -103,6 +106,32 @@ public class AppMainJakob {
 //		int x = 1;
 //		
 
+		
+		/**
+		 * Test Calc and Extract Tag Cloud for Every Artist
+		 * 
+		 */
+		
+		System.out.println("---------- LastFM Tag Cloud Feature Retrieval ----------");
+		List<MirArtist> artistList = fileParser.getArtistList();
+		int idx = 1;
+		for (MirArtist mirArtist : artistList) {
+			// 1. this creates and calculates the feature and 
+			// 2. adds it to the mirArtist
+			Feature feature = FeatureFactory.createFeatureForArtist(FeatureFactory.FEATURE_TAGCLOUD, mirArtist);
+			mirArtist.addFeature(feature);
+			System.out.println(idx + " Artist: " + mirArtist.getName() + "  calcFeature  " + feature.getName());
+			idx++;
+		}
+		//test
+		MirArtist testArtist = artistList.get(10);
+		System.out.println("Test For Artist" + testArtist.getName());
+		TagCloudFeature feature = testArtist.getTagCloudFeature();
+		for (String tag : feature.getTopTags().keySet()) {
+			System.out.println("\t" +tag + " \t\tcount: " + feature.getTopTags().get(tag) + " \t\tnorm: " + feature.getTopTagsNorm().get(tag));
+			
+		}
+		
 
 	}
 
