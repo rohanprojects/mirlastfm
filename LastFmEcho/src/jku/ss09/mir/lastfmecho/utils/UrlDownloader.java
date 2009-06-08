@@ -8,9 +8,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.net.UnknownHostException;
 
 
@@ -24,6 +26,8 @@ import java.net.UnknownHostException;
 public class UrlDownloader {
 	
 	private int maxPages;
+	private static final int SOCKET_TIMEOUT_MS = 30 * 1000;
+	private static final int READ_TIMEOUT_MS = 30 * 1000;
 
 	
 	public UrlDownloader() {
@@ -104,7 +108,7 @@ public class UrlDownloader {
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
-			System.err.println("Error: " + e.getMessage());
+			System.err.println("Error MalformedURlException: " + e.getMessage());
 			return false;
 		}
 		
@@ -112,7 +116,18 @@ public class UrlDownloader {
 			try 
 			{
 
-				BufferedReader bufferedIn = new BufferedReader(new InputStreamReader(urlObject.openStream()));
+				//METHOD OLD fo opening url input stream
+				//InputStream urlInputStream = urlObject.openStream()
+				
+				//new Method for opening Input Stream 
+				URLConnection conn = urlObject.openConnection();
+				// setting these timeouts ensures the client does not deadlock indefinitely
+				// when the server has problems.
+				conn.setConnectTimeout(SOCKET_TIMEOUT_MS);
+				conn.setReadTimeout(READ_TIMEOUT_MS);
+				InputStream urlInputStream = conn.getInputStream();
+
+				BufferedReader bufferedIn = new BufferedReader(new InputStreamReader(urlInputStream));
 				BufferedWriter bufferedOut = new BufferedWriter(new FileWriter(targetFileName));
 
 				String inputLine;
@@ -124,15 +139,15 @@ public class UrlDownloader {
 				bufferedOut.close();
 				// if a specific file in a domain cannot be retrieved e.g. http://www.cc.com/abofefut.htm
 			} catch (FileNotFoundException e) {
-				System.err.println("Error: " + e.getMessage());
+				System.err.println("Error FileNotFoundException: " + e.getMessage());
 				return false;
 				//  if the domain itself cannot be resolved				
 			} catch (UnknownHostException e) {
-				System.err.println("Error: " + e.getMessage());
+				System.err.println("Error UnknownHostException: " + e.getMessage());
 				return false;
 				//  Server returned HTTP response code: 403 for URL: 
 			}  catch (IOException e) {
-				System.err.println("Error: " + e.getMessage());
+				System.err.println("Error IOException: " + e.getMessage());
 				return false;
 			}
 
