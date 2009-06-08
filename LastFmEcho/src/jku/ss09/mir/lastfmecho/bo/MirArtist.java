@@ -19,8 +19,8 @@ public class MirArtist {
 		super();
 		this.name = name;
 		
-		setTags((HashMap<String, Integer>)Artist.getTopTags(name, LastFMParser.getApiKey()));
-		normalizeTags();
+//		setTags((HashMap<String, Integer>)Artist.getTopTags(name, LastFMParser.getApiKey()));
+//		normalizeTags();
 	}
 
 
