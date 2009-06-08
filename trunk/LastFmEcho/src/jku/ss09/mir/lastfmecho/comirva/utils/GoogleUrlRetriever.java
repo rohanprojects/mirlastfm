@@ -72,7 +72,10 @@ public class GoogleUrlRetriever {
 			for (int i=startIdx; i<artists.size(); i++) {
 				curIdx = i;	// remember current position
 				//************************** ******the query for the search engine
-				String query = "\"" + (String)artists.get(i) + "\"+music";
+				//String query = "\"" + (String)artists.get(i) + "\"+music";
+				
+				// modified lastfmecho 20090608 - search artist just with name
+				String query = "\"" + (String)artists.get(i) + "\"";
 				//**************************************************************//
 				AnySearch as = new AnySearch(asCfg, "http://www.google.com", query);
 				System.out.println(i + ": issuing query " + query + "\tretrieving pages "+(asCfg.getFirstRequestedPageNumber()+1)+" to "+(asCfg.getFirstRequestedPageNumber()+MAX_RETURNED_PAGES));
