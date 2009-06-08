@@ -26,8 +26,8 @@ import java.net.UnknownHostException;
 public class UrlDownloader {
 	
 	private int maxPages;
-	private static final int SOCKET_TIMEOUT_MS = 30 * 1000;
-	private static final int READ_TIMEOUT_MS = 30 * 1000;
+	private static final int SOCKET_TIMEOUT_MS = 20 * 1000;
+	private static final int READ_TIMEOUT_MS = 20 * 1000;
 
 	
 	public UrlDownloader() {
