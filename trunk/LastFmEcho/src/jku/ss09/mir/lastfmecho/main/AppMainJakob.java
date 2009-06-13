@@ -11,7 +11,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.Vector;
 
+import test.visualization.MirArtistNetworkGraphVisualizer;
+
 import comirva.util.external.URLRetriever;
+import edu.uci.ics.jung.graph.DirectedSparseGraph;
+import edu.uci.ics.jung.graph.Graph;
 
 import jku.ss09.mir.lastfmecho.bo.LastFMParser;
 import jku.ss09.mir.lastfmecho.bo.MusicFileParser;
@@ -109,7 +113,39 @@ public class AppMainJakob {
 
 		
 		/**
-		 * Test Calc and Extract Tag Cloud for Every Artist
+		 * Testing retrieve LastFM Tags for Artists and display them 
+		 */
+		
+//		
+//		System.out.println("---------- LastFM Tag Cloud Feature Retrieval ----------");
+//		List<MirArtist> artistList = fileParser.getArtistList();
+//		int idx = 1;
+//		for (MirArtist mirArtist : artistList) {
+//			// 1. this creates and calculates the feature and 
+//			// 2. adds it to the mirArtist
+//			Feature feature = FeatureFactory.createFeatureForArtist(FeatureFactory.FEATURE_TAGCLOUD, mirArtist);
+//			//Todo exception handlingm if a feature cant be created
+//			
+//			mirArtist.addFeature(feature);
+//			System.out.println(idx + " Artist: " + mirArtist.getName() + "  calcFeature  " + feature.getName());
+//			idx++;
+//		}
+		
+//		//test
+//		MirArtist testArtist = artistList.get(10);
+//		System.out.println("Test For Artist" + testArtist.getName());
+//		TagCloudFeature feature = testArtist.getTagCloudFeature();
+//		for (String tag : feature.getTopTags().keySet()) {
+//			System.out.println("\t" +tag + " \t\tcount: " + feature.getTopTags().get(tag) + " \t\tnorm: " + feature.getTopTagsNorm().get(tag));
+//			
+//		}
+		
+	
+		/**
+		 * Test - 
+		 * 1.) retrieve LastFM Tags for all artists , 
+		 * 2.) calc similarities for all and 
+		 * 3.) visualize them 
 		 * 
 		 */
 		
@@ -131,30 +167,35 @@ public class AppMainJakob {
 		ConsineSimilarityLastFMTagCloud cosinSimilarity = new ConsineSimilarityLastFMTagCloud(1,"CosineSimilarity",artistList);
 
 		if (cosinSimilarity.runCalc() == true) {
-			double[][] res = cosinSimilarity.getResults();
-			for (int i = 0; i < res.length; i++) {
-				String line = "";
-				for (int j = 0; j < res[i].length; j++) {
-					line+= i + " :"+ res[i][j] +"\t";
-				}
-				System.out.println(line);
-			}
+//			double[][] res = cosinSimilarity.getResults();
+//			for (int i = 0; i < res.length; i++) {
+//				String line = "";
+//				for (int j = 0; j < res[i].length; j++) {
+//					line+= i + " :"+ res[i][j] +"\t";
+//				}
+//				System.out.println(line);
+//			}
+		
+			
+			
+			MirArtistNetworkGraphVisualizer vis = new MirArtistNetworkGraphVisualizer(artistList.subList(0, 20),cosinSimilarity.getResults());
+			vis.init();
+			
 		}
 		
 		
 		
 		
+			
 		
 		
 		
-//		//test
-//		MirArtist testArtist = artistList.get(10);
-//		System.out.println("Test For Artist" + testArtist.getName());
-//		TagCloudFeature feature = testArtist.getTagCloudFeature();
-//		for (String tag : feature.getTopTags().keySet()) {
-//			System.out.println("\t" +tag + " \t\tcount: " + feature.getTopTags().get(tag) + " \t\tnorm: " + feature.getTopTagsNorm().get(tag));
-//			
-//		}
+		
+		
+		
+		
+		
+
 		
 
 	}

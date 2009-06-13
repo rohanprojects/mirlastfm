@@ -16,6 +16,8 @@ import edu.uci.ics.jung.graph.DirectedSparseGraph;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.visualization.BasicVisualizationServer;
 import edu.uci.ics.jung.visualization.RenderContext;
+import edu.uci.ics.jung.visualization.decorators.NumberFormattingTransformer;
+import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 
 public class TestVis {
 
@@ -69,20 +71,16 @@ public class TestVis {
 	 */
 	public static void main(String[] args) {
 	
-		Graph<Integer, String> g = new DirectedSparseGraph<Integer, String>();
+		Graph<Integer, Double> g = new DirectedSparseGraph<Integer, Double>();
 
 	    g.addVertex((Integer) 1);
 	    g.addVertex((Integer) 2);
 	    g.addVertex((Integer) 3);
 
-	    g.addEdge("Edge_1", 1, 2);
-	    g.addEdge("Edge_2", 2, 3);
-	    g.addEdge("Edge_3", 2, 3);
-	    g.addEdge("Edge_4", 2, 3);
-	    g.addEdge("Edge_5", 2, 3);
-	    g.addEdge("Edge_6", 2, 3);
-	    g.addEdge("Edge_7", 2, 3);
-	    //g.addEdge("Edge_3", 3, 1);
+	    g.addEdge(0.543, 1, 2);
+	    g.addEdge(0.0004, 2, 3);
+	    g.addEdge(1.0, 1, 3);
+	    
 	    
 
 	    SpringLayout2<Integer, String> layout = new SpringLayout2(g);
@@ -90,7 +88,12 @@ public class TestVis {
 	    layout.setSize(new Dimension(350, 350));
 	    BasicVisualizationServer<Integer, String> vv = new BasicVisualizationServer(layout);
 	    vv.setPreferredSize(new Dimension(350, 350)); //Sets the viewing area size
-	    
+        vv.getRenderContext().setVertexLabelTransformer(new Transformer<Integer,String>(){
+
+			public String transform(Integer v) {
+				return "Vertex "+v;
+			}});
+        vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller<String>());      	
 	    
 	    
 //	    Map<Number,Number> edge_weight = new HashMap<Number,Number>();
