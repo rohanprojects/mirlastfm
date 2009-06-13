@@ -20,6 +20,7 @@ import jku.ss09.mir.lastfmecho.bo.MirGenre;
 import jku.ss09.mir.lastfmecho.bo.feature.Feature;
 import jku.ss09.mir.lastfmecho.bo.feature.FeatureFactory;
 import jku.ss09.mir.lastfmecho.bo.feature.TagCloudFeature;
+import jku.ss09.mir.lastfmecho.bo.similarity.ConsineSimilarityLastFMTagCloud;
 import jku.ss09.mir.lastfmecho.comirva.utils.GoogleUrlRetriever;
 import jku.ss09.mir.lastfmecho.comirva.utils.TermProfileUtils;
 import jku.ss09.mir.lastfmecho.utils.HTMLFileFilter;
@@ -125,14 +126,35 @@ public class AppMainJakob {
 			System.out.println(idx + " Artist: " + mirArtist.getName() + "  calcFeature  " + feature.getName());
 			idx++;
 		}
-		//test
-		MirArtist testArtist = artistList.get(10);
-		System.out.println("Test For Artist" + testArtist.getName());
-		TagCloudFeature feature = testArtist.getTagCloudFeature();
-		for (String tag : feature.getTopTags().keySet()) {
-			System.out.println("\t" +tag + " \t\tcount: " + feature.getTopTags().get(tag) + " \t\tnorm: " + feature.getTopTagsNorm().get(tag));
-			
+		
+		//calc similarity Matrix - based on tags
+		ConsineSimilarityLastFMTagCloud cosinSimilarity = new ConsineSimilarityLastFMTagCloud(1,"CosineSimilarity",artistList);
+
+		if (cosinSimilarity.runCalc() == true) {
+			double[][] res = cosinSimilarity.getResults();
+			for (int i = 0; i < res.length; i++) {
+				String line = "";
+				for (int j = 0; j < res[i].length; j++) {
+					line+= i + " :"+ res[i][j] +"\t";
+				}
+				System.out.println(line);
+			}
 		}
+		
+		
+		
+		
+		
+		
+		
+//		//test
+//		MirArtist testArtist = artistList.get(10);
+//		System.out.println("Test For Artist" + testArtist.getName());
+//		TagCloudFeature feature = testArtist.getTagCloudFeature();
+//		for (String tag : feature.getTopTags().keySet()) {
+//			System.out.println("\t" +tag + " \t\tcount: " + feature.getTopTags().get(tag) + " \t\tnorm: " + feature.getTopTagsNorm().get(tag));
+//			
+//		}
 		
 
 	}
