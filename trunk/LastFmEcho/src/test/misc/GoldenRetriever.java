@@ -1,4 +1,4 @@
-package misc;
+package test.misc;
 
 import java.io.*;
 import java.util.*;

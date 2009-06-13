@@ -6,7 +6,7 @@
  * or http://jung.sourceforge.net/license.txt for a description.
  * 
  */
-package test.visualization;
+package jku.ss09.mir.lastfmecho.bo.visualization;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
