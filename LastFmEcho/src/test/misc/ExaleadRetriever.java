@@ -1,7 +1,7 @@
 /*
  * Created on 03.08.2007
  */
-package misc;
+package test.misc;
 
 
 import comirva.util.external.*;
