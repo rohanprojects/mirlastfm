@@ -119,6 +119,8 @@ public class AppMainJakob {
 			// 1. this creates and calculates the feature and 
 			// 2. adds it to the mirArtist
 			Feature feature = FeatureFactory.createFeatureForArtist(FeatureFactory.FEATURE_TAGCLOUD, mirArtist);
+			//Todo exception handlingm if a feature cant be created
+			
 			mirArtist.addFeature(feature);
 			System.out.println(idx + " Artist: " + mirArtist.getName() + "  calcFeature  " + feature.getName());
 			idx++;
