@@ -70,11 +70,11 @@ public class TestLastFMFetching {
 		MirArtist band2 = new MirArtist("Dark Throne");
 		MirArtist band3 = new MirArtist("The Beatles");
 	
-		band.compareArtistCS(band2);
-		band.compareArtistCS(band3);
-		
-		band.compareArtistED(band2);
-		band.compareArtistED(band3);
+//		band.compareArtistCS(band2);
+//		band.compareArtistCS(band3);
+//		
+//		band.compareArtistED(band2);
+//		band.compareArtistED(band3);
 		
 //		System.out.println("----EVENTS -----------");
 //		Collection <Event> eventColl = Artist.getEvents(artistString, LastFMParser.getApiKey());
