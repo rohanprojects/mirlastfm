@@ -254,8 +254,8 @@ public class ClusteringDemo extends JApplet {
 					sliderBorder.setTitle(
 						COMMANDSTRING + edgeBetweennessSlider.getValue());
 					eastControls.repaint();
-					vv.validate();
-					vv.repaint();
+					//vv.validate();
+					//vv.repaint();
 				}
 			}
 		});
