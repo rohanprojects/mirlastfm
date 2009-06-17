@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.Vector;
 
-import test.visualization.MirArtistNetworkGraphVisualizer;
 
 import comirva.util.external.URLRetriever;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
@@ -25,6 +24,7 @@ import jku.ss09.mir.lastfmecho.bo.feature.Feature;
 import jku.ss09.mir.lastfmecho.bo.feature.FeatureFactory;
 import jku.ss09.mir.lastfmecho.bo.feature.TagCloudFeature;
 import jku.ss09.mir.lastfmecho.bo.similarity.ConsineSimilarityLastFMTagCloud;
+import jku.ss09.mir.lastfmecho.bo.visualization.MirArtistNetworkGraphVisualizer;
 import jku.ss09.mir.lastfmecho.comirva.utils.GoogleUrlRetriever;
 import jku.ss09.mir.lastfmecho.comirva.utils.TermProfileUtils;
 import jku.ss09.mir.lastfmecho.utils.HTMLFileFilter;
@@ -178,7 +178,7 @@ public class AppMainJakob {
 		
 			
 			
-			MirArtistNetworkGraphVisualizer vis = new MirArtistNetworkGraphVisualizer(artistList.subList(0, 20),cosinSimilarity.getResults());
+			MirArtistNetworkGraphVisualizer vis = new MirArtistNetworkGraphVisualizer(artistList,cosinSimilarity.getResults());
 			vis.init();
 			
 		}

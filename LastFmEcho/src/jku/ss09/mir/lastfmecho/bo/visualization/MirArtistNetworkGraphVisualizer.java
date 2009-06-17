@@ -6,7 +6,7 @@
  * or http://jung.sourceforge.net/license.txt for a description.
  * 
  */
-package test.visualization;
+package jku.ss09.mir.lastfmecho.bo.visualization;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -20,7 +20,11 @@ import java.util.List;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import jku.ss09.mir.lastfmecho.bo.MirArtist;
 
@@ -29,6 +33,9 @@ import org.apache.commons.collections15.Transformer;
 import edu.uci.ics.jung.algorithms.layout.FRLayout;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
 import edu.uci.ics.jung.graph.Graph;
+import edu.uci.ics.jung.graph.UndirectedSparseGraph;
+import edu.uci.ics.jung.graph.UndirectedSparseMultigraph;
+import edu.uci.ics.jung.graph.event.GraphEvent.Edge;
 import edu.uci.ics.jung.graph.util.EdgeType;
 import edu.uci.ics.jung.visualization.GraphZoomScrollPane;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
@@ -50,7 +57,12 @@ import edu.uci.ics.jung.visualization.renderers.DefaultVertexLabelRenderer;
  */
 public class MirArtistNetworkGraphVisualizer {
 
-    /**
+    static final int SIMILARITY_MIN = 0;
+    static final int SIMILARITY_MAX = 100;
+    static final int SIMILARITY_DEFAULT  = 90;    //initial frames per second
+	
+	
+	/**
      * the graph
      */
     Graph<Integer,Number> graph;
@@ -69,9 +81,6 @@ public class MirArtistNetworkGraphVisualizer {
     	this.similarityMatrix = similarityMatrix;
     }
     
-   
-    
-
 
 	public boolean init(){
         
@@ -82,31 +91,83 @@ public class MirArtistNetworkGraphVisualizer {
 			return false;
 		}
 		
-		Graph<Integer, Number> graph = new DirectedSparseGraph<Integer, Number>();
-		
-		int idx = 0;
-		for (MirArtist artist : artistList) {
-			graph.addVertex((Integer) idx);
-			idx++;
-		}
-		
-		
-		double edgeIndex = 0;
-		for (int i = 0; i < artistList.size(); i++) {
-			for (int j = 0; j < artistList.size(); j++) {
-				
-//				if (i >=j) {
-					if (similarityMatrix[i][j] > 0.9) {
-						graph.addEdge(edgeIndex, i,j);
-						edgeIndex++;
-					}
-//				}
+		graph = getGraph(SIMILARITY_DEFAULT / 100.0);
+		setVisualizationRenderer();
+        
+        // create a frome to hold the graph
+        final JFrame frame = new JFrame();
+        Container content = frame.getContentPane();
+        final GraphZoomScrollPane panel = new GraphZoomScrollPane(vv);
+        content.add(panel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        final ModalGraphMouse gm = new DefaultModalGraphMouse<Integer,Number>();
+        vv.setGraphMouse(gm);
+        
+        final ScalingControl scaler = new CrossoverScalingControl();
+
+        JButton plus = new JButton("+");
+        plus.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                scaler.scale(vv, 1.1f, vv.getCenter());
+            }
+        });
+        JButton minus = new JButton("-");
+        minus.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                scaler.scale(vv, 1/1.1f, vv.getCenter());
+            }
+        });
+        
+
+
+        JSlider slider = new JSlider(JSlider.HORIZONTAL,SIMILARITY_MIN,SIMILARITY_MAX,SIMILARITY_DEFAULT);
+        slider.setMajorTickSpacing(10);
+        slider.setPaintTicks(true);
+
+        
+        final JLabel sliderLabel = new JLabel("0.87");
+        
+        final MirArtistNetworkGraphVisualizer thisPointer = this;
+        
+        slider.addChangeListener(new ChangeListener()
+        {
+			@Override
+			public void stateChanged(ChangeEvent arg0) {
+				JSlider source = (JSlider)arg0.getSource();
+                if (!source.getValueIsAdjusting()) {
+                    System.out.println(source.getValue()/100.0);
+                    
+                    Graph testG = getGraph(source.getValue() /100.0);
+                    sliderLabel.setText(Double.toString(source.getValue() /100.0));
+                    thisPointer.vv.setGraphLayout(new FRLayout<Integer,Number>(testG));
+                    //thisPointer.setVisualizationRenderer();
+                    thisPointer.vv.validate();
+                    thisPointer.vv.repaint();
+                    
+                }    
 			}
-		}
-		
-		if (graph == null)
-		{
-			return false;
+        	
+        });
+
+        JPanel controls = new JPanel();
+        controls.add(plus);
+        controls.add(minus);
+        controls.add(((DefaultModalGraphMouse<Integer,Number>) gm).getModeComboBox());
+        controls.add(new JLabel("Similarity Limit: "));
+        controls.add(sliderLabel);
+        controls.add(slider);
+        content.add(controls, BorderLayout.SOUTH);
+
+        frame.pack();
+        frame.setVisible(true);
+        
+        return true;
+    }
+
+	private void setVisualizationRenderer() {
+		if (graph == null) {
+			return ;
 		}
 
 			
@@ -164,43 +225,55 @@ public class MirArtistNetworkGraphVisualizer {
 
         // add my listener for ToolTips
         vv.setVertexToolTipTransformer(new ToStringLabeller<Integer>());
-        
-        // create a frome to hold the graph
-        final JFrame frame = new JFrame();
-        Container content = frame.getContentPane();
-        final GraphZoomScrollPane panel = new GraphZoomScrollPane(vv);
-        content.add(panel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-        final ModalGraphMouse gm = new DefaultModalGraphMouse<Integer,Number>();
-        vv.setGraphMouse(gm);
-        
-        final ScalingControl scaler = new CrossoverScalingControl();
+	}
 
-        JButton plus = new JButton("+");
-        plus.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                scaler.scale(vv, 1.1f, vv.getCenter());
-            }
-        });
-        JButton minus = new JButton("-");
-        minus.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                scaler.scale(vv, 1/1.1f, vv.getCenter());
-            }
-        });
+	private Graph getGraph(double limit) {
+		Graph graph = new UndirectedSparseGraph<Integer, Number>();
+		
+		int idx = 0;
+		for (MirArtist artist : artistList) {
+			
+			boolean findSimilaritiesAboveLimit = findSimilarityAboveLimit(limit, idx);
+			
+			if (findSimilaritiesAboveLimit)  {
+				graph.addVertex((Integer) idx);	
+			}
 
-        JPanel controls = new JPanel();
-        controls.add(plus);
-        controls.add(minus);
-        controls.add(((DefaultModalGraphMouse<Integer,Number>) gm).getModeComboBox());
-        content.add(controls, BorderLayout.SOUTH);
+			
+			idx++;
+		}
+		
+		
+		double edgeIndex = 0;
+		for (int i = 0; i < artistList.size(); i++) {
+			for (int j = 0; j < artistList.size(); j++) {
+				
+				if (j > i) {
+					if (similarityMatrix[i][j] > limit) {
+						graph.addEdge(edgeIndex, i,j,EdgeType.UNDIRECTED);
+						edgeIndex++;
+					}
+				}
+			}
+		}
+		return graph;
+	}
 
-        frame.pack();
-        frame.setVisible(true);
-        
-        return true;
-    }
+
+	private boolean findSimilarityAboveLimit(double limit, int idx) {
+		boolean findSimilaritiesAboveLimit = false;
+		for (int i = 0; i < artistList.size(); i++) {
+			if (idx != i)
+			{
+				if (similarityMatrix[idx][i] > limit)
+				{
+					findSimilaritiesAboveLimit = true;
+					break;
+				}
+			}
+		}
+		return findSimilaritiesAboveLimit;
+	}
     
     
     /**
@@ -241,13 +314,5 @@ public class MirArtistNetworkGraphVisualizer {
         graph.addEdge(new Double(Math.random()), v[5], v[4], EdgeType.DIRECTED);
     }
 
-    /**
-     * a driver for this demo
-     */
-    public static void main(String[] args) 
-    {
-//        MirArtistNetworkGraphVisualizer vis = new MirArtistNetworkGraphVisualizer();
-//        vis.init();
-//        
-    }
+
 }
