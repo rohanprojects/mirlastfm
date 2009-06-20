@@ -1,0 +1,51 @@
+% -*- TeX:de -*-
+\NeedsTeXFormat{LaTeX2e}
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[german]{babel} % german text
+\usepackage[DIV12]{typearea} % size of printable area
+\usepackage[T1]{fontenc} % font encoding
+%\usepackage[latin1]{inputenc} % most likely on Windows
+\usepackage[utf8]{inputenc} % probably on Linux
+
+\usepackage{graphicx} % to include images
+%\usepackage{subfigure} % for creating subfigures
+\usepackage{amsmath} % a bunch of symbols
+\usepackage{amssymb} % even more symbols
+\usepackage{booktabs} % pretty tables
+
+% a floating environment for circuits
+\usepackage{float}
+\newfloat{circuit}{tbph}{circuits}
+\floatname{circuit}{Schaltplan}
+\restylefloat*{circuit}
+
+% a floating environment for diagrams
+\usepackage{float}
+\newfloat{diagram}{tbph}{diagrams}
+\floatname{diagram}{Diagramm}
+\restylefloat*{diagram}
+
+\renewcommand{\familydefault}{\sfdefault} % use sans-serif font as default
+
+\selectlanguage{german} % use german
+\sloppy % friendly typesetting
+\setlength\parindent{0pt} 
+
+\begin{document}
+
+\newpage
+\tableofcontents
+
+% Ueberblick
+\newpage
+\input{lastfm_info.tex}
+
+% Implementierung und Ergebnisse
+\newpage
+\input{lastfm_echo.tex}
+
+
+\end{document}
+
+
