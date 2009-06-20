@@ -1,0 +1,21 @@
+\section{LastFM}
+\subsection{Hintergrund}
+\textit{LastFM} ist heute ein personalisiertes Online-Radio - abspielbar mit einer eigenen, propri"ateren Software. Dieses erm"ogicht es den Usern, einen eigenen, auf ihren Geschmack zugeschnittenen Musikstream abzuspielen. Angegeben kann der momentan gew"unschte Musikstil via Tags, entweder auf einen K"unstler bezogen, oder auf einen Musikstil bzw. Genre.
+Weiters ist \textit{LastFM} auch ein gro"ses soziales Netzwerk, dass vor allem auf das zusammenbringen von Menschen mit "ahnlichem Musikgeschmack ausgelegt ist. Die User der Community tragen zur Klassifikation des Musikbestandes durch tagging, Wiki-Betr"age und einfach ihr H"orverhalten bei. Mehr dazu in Abschnitt \ref{features_lastfm}.
+
+\subsection{Geschichtlicher "Uberblick}
+\textif{LastFM} wurde in den sp"aten 90er Jahren als Online-Musiklabel gegr"undet und bot als Feature die M"oglichkeit, sich durch die Art der konsumierten Musikst"ucke ein Profil "uber seinen Musikgeschmack zu erstellen zu erstellen. Die Firma \textit{Audioscrobbler}, hervorgegangen aus einem Informatikprojekt, hatte sehr "ahnliche Ideen, worauf hin beide Unternehmen sehr eng zusammenarbeiteten, bis sie schlie"slich im Jahr 2005 fusionierten und unter dem Namen \textit{LastFM} die Funktionen von beiden Technologien zur Verf"ugung stellen.
+2007 wurde \textit{LastFM} um den Preis von 280 Millionen Dollar an das US-amerikanische Medienunternehmen CBS verkauft. Diese "Ubernahme geh"ort damit zu den gr"o"sten dotcom Aquisitionen bisher. 
+Seit April 2009 ist die Benutzung des Radiodienstes nur mehr in den USA, Gro"sbritannien und Deutschland kostenlos m"oglich. In anderen L"andern muss ein entgelt von 3 Euro f"ur die monatliche Nutzung erbracht werden.
+
+
+\subsection{API Features}
+\label{features_lastfm}
+Hauptquelle f"ur Informationen "uber Musikst"ucke und K"unstler sind die User der Community. Mittels tagging oder einfach dem "ubermitteln der Information, welche Musikst"ucke man konsumiert (dem sogenannten \textit{scrobbeln}), wird ein riesiger Metadatenpool ermittelt. Auf dieser Basis werden die K"unstler und Bands Genres zugeordnet, sodass "Ahnlichkeiten zwischen diesen ermittelt werden k"onnen. 
+Weiters kann man "uber das Online-Portal auch eine Menge Hintergrundinformatonen und aktuelle Auftritte (k"unstler- oder regionsbezogen) erfahren. 
+
+Die meisten dieser Infos lassen sich direkt "uber die Webseite, oder eine Webserice-API abrufen. Die API ist zu denselben Bedingungen verf"ugbar wie die Nutzung des Radiodienstes, d.h. au"serhalb US, UK und DE muss man einen geringes monatliches Entgelt entrichten. Nur wenn man die API in gro"sem Standard nutzen will sind eigene Nutzungsbedingungen mit den Betreibern auszuverhandeln.
+Technisch basiert die Web-API auf dem REST-Standard (XML), Abfragen sind somit unkompliziert via HTTP m"oglich. Unter anderem lassen sich K"unstlerdaten (Bio, Alben, Events, Top-Songs, Tags, ...), Geodaten (Events in der Umgebung, beliebteste K"unstler, ...), Userdaten (Top-Artists, Friends, Neighbours, ...) und viele mehr. F"ur eine Dokumentation mit Anwendungsbeispielen sei auf \textit{http://www.lastfm.de/api/intro} verwiesen. 
+
+Es exisitieren eine Reihe von Wrapper-APIs von Dritten f"ur unterschiedliche Technologien, damit man die Web-API auch unkompliziert in anderen Anwendungen nutzen kann. Die Qualit"at dieser Implementierungen ist unterschiedlich und es kann durchaus sein dass diese nicht am aktuellen Stand der Web-API sind. 
+
