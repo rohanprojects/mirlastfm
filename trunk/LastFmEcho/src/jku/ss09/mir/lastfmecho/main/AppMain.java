@@ -44,8 +44,8 @@ public class AppMain {
 		 * MIR MusicFileParser 
 		 * fetches content from genre, artist files provided for the project
 		 */
-		MusicFileParser fileParser = new MusicFileParser();
-		fileParser.run();
+		//MusicFileParser fileParser = new MusicFileParser();
+		//fileParser.run();
 
 //		System.out.println("Genres: " + fileParser.getGenreSet().size());
 //		for (MirGenre mirGenre : fileParser.getGenreSet()) {
@@ -59,10 +59,10 @@ public class AppMain {
 		 * An auxiliary class for fetching content from LastFM via 
 		 * User: Jakob Doppler Profile and API Key   
 		 */   
-//		LastFMParser lastFmParser = new LastFMParser();
-//		String artistString= "Incubus";
-//		TestLastFMFetching.testExtractArtistInfo(artistString);
-//		
+		LastFMParser lastFmParser = new LastFMParser();
+		String artistString= "Incubus";
+		TestLastFMFetching.testExtractArtistInfo(artistString);
+		
 		/**
 		 * Google Parser
 		 * maybe get Information from Google Seach Results - With wget/CoMIRVA
@@ -84,10 +84,10 @@ public class AppMain {
 		 *  Url Downloader
 		 *  Fetches n files
 		 */
-		UrlDownloader urldownloader = new UrlDownloader();
+		//UrlDownloader urldownloader = new UrlDownloader();
 		//urldownloader.runFile(downloadPath + "urls.dat" ,downloadPath);
-		urldownloader.setMaxPages(50);
-		urldownloader.runDirectory(new File(dirPath + "/data/download/"));
+		//urldownloader.setMaxPages(50);
+		//urldownloader.runDirectory(new File(dirPath + "/data/download/"));
 		
 		//Playlist playlist = Playlist.create("example playlist", "description", session2);
 
