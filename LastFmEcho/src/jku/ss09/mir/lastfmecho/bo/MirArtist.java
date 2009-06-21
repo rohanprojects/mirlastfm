@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import jku.ss09.mir.lastfmecho.bo.feature.EpochFeature;
 import jku.ss09.mir.lastfmecho.bo.feature.Feature;
 import jku.ss09.mir.lastfmecho.bo.feature.FeatureFactory;
 import jku.ss09.mir.lastfmecho.bo.feature.TagCloudFeature;
@@ -40,7 +41,7 @@ public class MirArtist {
 		this.genre = genre;
 		genre.add(this);
 	}
-
+		
 
 	public String getName() {
 		return name;
@@ -72,6 +73,23 @@ public class MirArtist {
 		}
 		return null;
 		
+	}
+	
+	/**
+	 * getsEpochFeature if it was created for this artist
+	 * 
+	 * @return epochFeature or null if it was not set
+	 */
+	public EpochFeature getEpochFeature() {
+		Feature feature = getFeature(FeatureFactory.FEATURE_EPOCH);
+		if (feature != null) {
+			if (feature instanceof EpochFeature) {
+				return (EpochFeature) feature;
+			} else {
+				return null;
+			}
+		}
+		return null;
 	}
 
 
