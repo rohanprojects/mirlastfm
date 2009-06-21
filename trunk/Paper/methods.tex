@@ -1,0 +1,22 @@
+\section{Auswertung der Daten}
+
+
+\subsection{Datenquellen}
+
+
+\subsection{Feature Extraction}
+
+
+\subsection{"Ahnlichkeitsmessungen}
+\subsubsection{Cosine-Similarity}
+Ein Ma"s zur Bestimmung der "Ahnlichkeit der K"unstler in der LastFM Datenbank ist die Auswertung der Tags und ein Vergleich auf deren "Ubereinstimmung.
+Dazu wurden die Tags der K"unstler mit der API ausgelesen und anschlie"send die "Ahnlichkeit mit der aus der LV bekannten Formel der Cosine Similarity bestimmt:
+
+\begin{equation}
+sim(a,b) = \frac{a*b}{\left|a\right|*\left|b\right|}
+\end{equation}
+
+Die API gibt auf Anfrage die Tags eines K"unstlers/Band mit einer Gewichtung zwischen 100 und 1 zur"uck. Zwei kleine Probleme traten hier aber auf: Zum werden auf jeden Fall eine Menge Tags zur"uckgegeben. Nach ein paar Versuchen wurde aber klar, dass die Tags mit Gewicht 1 nur zuf"alliger Natur sind und in die Berechnung nicht mit einzubeziehen sind (Mozart hat die Attribute \textit{psychodelic} bzw. \textit{Heavy-Metal} eher nicht verdient). Weiters lieferte unsere Wrapper-API f"ur Java leider nur die Tags, aber ohne Gewichtung. Die API musste daher geringf"ugig modifiziert werden.
+
+\subsection{Visualisierung}
+
