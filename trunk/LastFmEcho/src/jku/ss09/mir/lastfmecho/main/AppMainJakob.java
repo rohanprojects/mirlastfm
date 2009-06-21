@@ -45,8 +45,6 @@ public class AppMainJakob {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-
-
 		
 		String dirPath = System.getProperty("user.dir");
 		System.out.println(dirPath);
