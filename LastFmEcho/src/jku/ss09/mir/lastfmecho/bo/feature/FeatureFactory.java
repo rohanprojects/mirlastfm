@@ -6,6 +6,7 @@ public class FeatureFactory {
 
 	public static int FEATURE_TAGCLOUD = 1;
 	public static int FEATURE_EPOCH= 2;
+	public static int FEATURE_TAGCLOUD_GOOGLE= 3;
 	
 	
 	
@@ -16,6 +17,8 @@ public class FeatureFactory {
 			feature = new TagCloudFeature(artist);
 		}else if (featureId == FEATURE_EPOCH) {
 			feature = new EpochFeature(artist);
+		}else if (featureId == FEATURE_TAGCLOUD_GOOGLE) {
+			feature = new LastFMTagCloudGoogleWeightedFeature(artist);	
 		}else
 			feature = null;
 		
