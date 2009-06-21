@@ -4,11 +4,8 @@ import jku.ss09.mir.lastfmecho.bo.MirArtist;
 
 public class FeatureFactory {
 
-	
-	
-	
 	public static int FEATURE_TAGCLOUD = 1;
-	public static int FEATURE_EPOCHE= 2;
+	public static int FEATURE_EPOCH= 2;
 	
 	
 	
@@ -17,9 +14,10 @@ public class FeatureFactory {
 		Feature feature  = null;
 		if (featureId == FEATURE_TAGCLOUD) {	
 			feature = new TagCloudFeature(artist);
-		} else if (featureId == FEATURE_EPOCHE) {
-			feature =  null;
-		}
+		}else if (featureId == FEATURE_EPOCH) {
+			feature = new EpochFeature(artist);
+		}else
+			feature = null;
 		
 		feature.calc();
 		return feature;
