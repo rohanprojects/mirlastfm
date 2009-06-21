@@ -1,0 +1,17 @@
+\section{Systemarchitektur}
+
+\subsection{"Uberblick der LastFM API-Features}
+\subsection{API Features}
+\label{features_lastfm}
+Hauptquelle f"ur Informationen "uber Musikst"ucke und K"unstler sind die User der Community. Mittels tagging oder einfach dem "ubermitteln der Information, welche Musikst"ucke man konsumiert (dem sogenannten \textit{scrobbeln}), wird ein riesiger Metadatenpool ermittelt. Auf dieser Basis werden die K"unstler und Bands Genres zugeordnet, sodass "Ahnlichkeiten zwischen diesen ermittelt werden k"onnen. 
+Weiters kann man "uber das Online-Portal auch eine Menge Hintergrundinformatonen und aktuelle Auftritte (k"unstler- oder regionsbezogen) erfahren. 
+
+Die meisten dieser Infos lassen sich direkt "uber die Webseite, oder eine Webserice-API abrufen. Die API ist zu denselben Bedingungen verf"ugbar wie die Nutzung des Radiodienstes, d.h. au"serhalb US, UK und DE muss man einen geringes monatliches Entgelt entrichten. Nur wenn man die API in gro"sem Standard nutzen will sind eigene Nutzungsbedingungen mit den Betreibern auszuverhandeln.
+Technisch basiert die Web-API auf dem REST-Standard (XML), Abfragen sind somit unkompliziert via HTTP m"oglich. Unter anderem lassen sich K"unstlerdaten (Bio, Alben, Events, Top-Songs, Tags, ...), Geodaten (Events in der Umgebung, beliebteste K"unstler, ...), Userdaten (Top-Artists, Friends, Neighbours, ...) und viele mehr. F"ur eine Dokumentation mit Anwendungsbeispielen sei auf \textit{http://www.lastfm.de/api/intro} verwiesen. 
+
+Es exisitieren eine Reihe von Wrapper-APIs von Dritten f"ur unterschiedliche Technologien, damit man die Web-API auch unkompliziert in anderen Anwendungen nutzen kann. Die Qualit"at dieser Implementierungen ist unterschiedlich und es kann durchaus sein dass diese nicht am aktuellen Stand der Web-API sind. 
+
+
+\subsection{Tools und Frameworks}
+
+
