@@ -56,7 +56,7 @@ public class AppMainEpoch {
 			// 2. adds it to the mirArtist
 			Feature feature = FeatureFactory.createFeatureForArtist(FeatureFactory.FEATURE_EPOCH, mirArtist);
 			mirArtist.addFeature(feature);
-			System.out.println(idx + " Artist: " + mirArtist.getName() + "  calcFeature  " + feature.getName());
+			System.out.println(idx + " Artist: " + mirArtist.getName() + " calcFeature " + feature.getName());
 			idx++;
 		}
 		
@@ -73,8 +73,8 @@ public class AppMainEpoch {
 				System.out.println(line);
 			}
 			
-			MirArtistNetworkGraphVisualizer vis = new MirArtistNetworkGraphVisualizer(artistList,distSimilarity.getResults());
-			vis.init();
+//			MirArtistNetworkGraphVisualizer vis = new MirArtistNetworkGraphVisualizer(artistList,distSimilarity.getResults());
+//			vis.init();
 		}
 		
 
