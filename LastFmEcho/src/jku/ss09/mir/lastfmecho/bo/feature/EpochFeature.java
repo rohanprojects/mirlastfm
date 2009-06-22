@@ -1,5 +1,6 @@
 package jku.ss09.mir.lastfmecho.bo.feature;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,13 +10,14 @@ import net.roarsoftware.lastfm.Album;
 
 import jku.ss09.mir.lastfmecho.bo.LastFMParser;
 import jku.ss09.mir.lastfmecho.bo.MirArtist;
+import jku.ss09.mir.lastfmecho.main.AppMainEpoch;
 
 public class EpochFeature extends Feature{
 	
 	
 	private Collection<Album> topAlbums;
 	private ArrayList<Integer> releaseDates;
-	private int meanYear;
+	private int meanYear = -1;
 //	private int rmsDeviation;
 	
 	
@@ -88,10 +90,20 @@ public class EpochFeature extends Feature{
 				sumYears += year;
 			
 			meanYear = sumYears / releaseDates.size();
+			try {
+				AppMainEpoch.writer.writeLine("Mittelwert: " + meanYear);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			System.out.println("Mittelwert: " + meanYear);
 		}	
 		else 
 			System.err.println("No release dates available. " );
+	}
+	
+	public int getMeanYear(){
+		return meanYear;
 	}
 	
 

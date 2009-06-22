@@ -1,9 +1,11 @@
 package jku.ss09.mir.lastfmecho.bo.similarity;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import jku.ss09.mir.lastfmecho.bo.MirArtist;
+import jku.ss09.mir.lastfmecho.main.AppMainEpoch;
 import jku.ss09.mir.lastfmecho.utils.MatrixUtils;
 
 public class DistanceSimilarityLastFMEpoch extends AbstractSimilartityMeasure {
@@ -55,6 +57,12 @@ public class DistanceSimilarityLastFMEpoch extends AbstractSimilartityMeasure {
 				
 					//calculate difference of mean release years
 					similarity = Math.abs(artistAMean-artistBMean);
+					try {
+						AppMainEpoch.writer.writeLine("Epoch distance between " + artistA.getName() + " and " + artistB.getName()+  ": " + similarity);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					System.out.println("Epoch distance between " + artistA.getName() + " and " + artistB.getName()+  ": " + similarity);
 				} 							
 				return similarity;

@@ -41,7 +41,7 @@ public class TextFileWriter {
 		//test 
 		
 		String dirPath = System.getProperty("user.dir");
-		String targetDir = dirPath + "/data/" + "doris.txt";
+		String targetDir = dirPath + "/data/results" + "epoch.txt";
 		try {
 			TextFileWriter writer = new TextFileWriter(targetDir);
 			writer.write("test");
