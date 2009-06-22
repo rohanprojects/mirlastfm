@@ -11,19 +11,11 @@ import org.apache.commons.lang.StringUtils;
 
 import jku.ss09.mir.lastfmecho.bo.MirArtist;
 import jku.ss09.mir.lastfmecho.utils.HTMLFileFilter;
+import jku.ss09.mir.lastfmecho.utils.IOUtils;
 
 public class FileListTermExtractor {
 
-
-
-
-
-	
-	
-	
-	public FileListTermExtractor()
-	{
-		
+	public FileListTermExtractor() {		
 	}
 
 
@@ -50,7 +42,6 @@ public class FileListTermExtractor {
 					extractTerms(fileContent,terms);
 				}
 			}
-			
 		}
 	}
 
@@ -60,9 +51,20 @@ public class FileListTermExtractor {
 		
 		for (String term  : terms.keySet()) {
 			int totalCount = terms.get(term);
-			int thisFileCount = StringUtils.countMatches(fileContent, term.toLowerCase());
+			//int thisFileCount = StringUtils.countMatches(fileContent, " " + term.toLowerCase() + " ");
+			int thisFileCount = StringUtils.countMatches(IOUtils.removeTagsSpecialChar(fileContent), term.toLowerCase());
+			
+			
+			
 			totalCount += thisFileCount;
 			terms.put(term, totalCount);
+			
+			
+			if (term.toLowerCase().equals("rap") && thisFileCount > 0)
+			{
+				int test = 10;
+			}
+			
 		}
 	}
 

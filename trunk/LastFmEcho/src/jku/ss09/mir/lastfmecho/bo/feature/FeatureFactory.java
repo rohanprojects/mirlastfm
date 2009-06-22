@@ -14,7 +14,7 @@ public class FeatureFactory {
 		
 		Feature feature  = null;
 		if (featureId == FEATURE_TAGCLOUD) {	
-			feature = new TagCloudFeature(artist);
+			feature = new LastFMTagCloudFeature(artist);
 		}else if (featureId == FEATURE_EPOCH) {
 			feature = new EpochFeature(artist);
 		}else if (featureId == FEATURE_TAGCLOUD_GOOGLE) {

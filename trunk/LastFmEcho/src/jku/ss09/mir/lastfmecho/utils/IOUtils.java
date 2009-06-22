@@ -87,6 +87,18 @@ public class IOUtils {
 		}
 		
  
+		content = removeTagsSpecialChar(content);
+ 
+		// Print the clean content & close the Readers
+		
+		source.close();
+		return content;
+	}
+
+
+
+
+	public static String removeTagsSpecialChar(String content) {
 		// Remove style tags & inclusive content
 		Pattern style = Pattern.compile("<style.*?>.*?</style>");
 		Matcher mstyle = style.matcher(content);
@@ -116,10 +128,6 @@ public class IOUtils {
 		Pattern nLineChar = Pattern.compile("\t+");
 		Matcher mnLine = nLineChar.matcher(content);
 		while (mnLine.find()) content = mnLine.replaceAll("\n");
- 
-		// Print the clean content & close the Readers
-		
-		source.close();
 		return content;
 	}
 
