@@ -3,6 +3,7 @@ package jku.ss09.mir.lastfmecho.bo.similarity;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import jku.ss09.mir.lastfmecho.bo.MirArtist;
 import jku.ss09.mir.lastfmecho.bo.feature.Feature;
@@ -47,11 +48,11 @@ public class ConsineSimilarityLastFMTagCloud extends AbstractSimilartityMeasure 
 		double otherDenominator = 0;
 		
 		
-		if (artistA.getTagCloudFeature() != null && artistB.getTagCloudFeature() != null) {
+		if (artistA.getLastFMTagCloudFeature() != null && artistB.getLastFMTagCloudFeature() != null) {
 			
-			if (artistA.getTagCloudFeature().getTopTags() != null && artistA.getTagCloudFeature().getTopTags() != null) {
-				HashMap<String,Integer> artistATags = artistA.getTagCloudFeature().getTopTags();
-				HashMap<String,Integer> artistBTags = artistB.getTagCloudFeature().getTopTags();
+			if (artistA.getLastFMTagCloudFeature().getTopTags() != null && artistA.getLastFMTagCloudFeature().getTopTags() != null) {
+				Map<String,Integer> artistATags = artistA.getLastFMTagCloudFeature().getTopTags();
+				Map<String,Integer> artistBTags = artistB.getLastFMTagCloudFeature().getTopTags();
 				
 				// calculate cosine similarity
 				for(String tagName : artistATags.keySet()){

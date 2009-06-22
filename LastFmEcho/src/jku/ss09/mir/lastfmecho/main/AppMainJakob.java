@@ -22,7 +22,7 @@ import jku.ss09.mir.lastfmecho.bo.MirArtist;
 import jku.ss09.mir.lastfmecho.bo.MirGenre;
 import jku.ss09.mir.lastfmecho.bo.feature.Feature;
 import jku.ss09.mir.lastfmecho.bo.feature.FeatureFactory;
-import jku.ss09.mir.lastfmecho.bo.feature.TagCloudFeature;
+import jku.ss09.mir.lastfmecho.bo.feature.LastFMTagCloudFeature;
 import jku.ss09.mir.lastfmecho.bo.similarity.ConsineSimilarityLastFMTagCloud;
 import jku.ss09.mir.lastfmecho.bo.visualization.MirArtistNetworkGraphVisualizer;
 import jku.ss09.mir.lastfmecho.comirva.utils.GoogleUrlRetriever;
@@ -146,7 +146,6 @@ public class AppMainJakob {
 		 * 3.) visualize them 
 		 * 
 		 */
-		
 		System.out.println("---------- LastFM Tag Cloud Feature Retrieval ----------");
 		List<MirArtist> artistList = fileParser.getArtistList();
 		int idx = 1;
@@ -163,7 +162,6 @@ public class AppMainJakob {
 		
 		//calc similarity Matrix - based on tags
 		ConsineSimilarityLastFMTagCloud cosinSimilarity = new ConsineSimilarityLastFMTagCloud(1,"CosineSimilarity",artistList);
-
 		if (cosinSimilarity.runCalc() == true) {
 //			double[][] res = cosinSimilarity.getResults();
 //			for (int i = 0; i < res.length; i++) {
@@ -173,8 +171,6 @@ public class AppMainJakob {
 //				}
 //				System.out.println(line);
 //			}
-		
-			
 			
 			MirArtistNetworkGraphVisualizer vis = new MirArtistNetworkGraphVisualizer(artistList,cosinSimilarity.getResults());
 			vis.init();

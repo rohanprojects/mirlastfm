@@ -3,21 +3,23 @@ package jku.ss09.mir.lastfmecho.bo.feature;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import net.roarsoftware.lastfm.Artist;
 
 import jku.ss09.mir.lastfmecho.bo.LastFMParser;
 import jku.ss09.mir.lastfmecho.bo.MirArtist;
+import jku.ss09.mir.lastfmecho.utils.CollectionUtils;
 
-public class TagCloudFeature extends Feature{
+public class LastFMTagCloudFeature extends Feature{
 	
 	
-	private HashMap<String,Integer> topTags;
-	private HashMap<String,Integer> topTagsNorm;
+	private Map<String,Integer> topTags;
+	private Map<String,Integer> topTagsNorm;
 	
 	
-	public TagCloudFeature(MirArtist artist) {
+	public LastFMTagCloudFeature(MirArtist artist) {
 		super(artist,FeatureFactory.FEATURE_TAGCLOUD,"TagCloud");
 	}
 	
@@ -26,41 +28,47 @@ public class TagCloudFeature extends Feature{
 	public boolean calc() {
 		
 		
-		setTags((HashMap<String, Integer>)Artist.getTopTags(artist.getName(), LastFMParser.getApiKey()));
+		setTags(Artist.getTopTags(artist.getName(), LastFMParser.getApiKey()));
 		normalizeTags();
 		
 		return false;
 	}
 	
 	
-	public HashMap<String, Integer> getTopTags() {
+	public Map<String, Integer> getTopTags() {
 		return topTags;
 	}
 
 
-	public HashMap<String, Integer> getTopTagsNorm() {
+	public Map<String, Integer> getTopTagsNorm() {
 		return topTagsNorm;
 	}
 	
 	
-	private void setTags(HashMap<String,Integer> tags){
-		topTags = new HashMap<String,Integer>();
-		Collection<String> tagNames = tags.keySet();
+	private void setTags(Map<String,Integer> tags){
+
+		
+//		topTags = new HashMap<String,Integer>();
+//		Collection<String> tagNames = tags.keySet();
+//		
+//		for(String name : tagNames){
+//			if(tags.get(name) > 0)
+//				topTags.put(name, tags.get(name));
+//		}
 		
 		
-		
-		
-		
-		for(String name : tagNames){
-			if(tags.get(name) > 0)
-				topTags.put(name, tags.get(name));
-		}
-		
+		topTags = CollectionUtils.sortByValue(tags);
 		filterAndRemoveTags(topTags);
 	}
 	
 	
-	private void filterAndRemoveTags(HashMap<String, Integer> tags) {
+	/**
+	 * 
+	 * Removes tags related to artist name or name substring
+	 * 
+	 * @param tags
+	 */
+	private void filterAndRemoveTags(Map<String, Integer> tags) {
 		
 		//remove tags that contain name or part of names from artist 
 		

@@ -7,7 +7,7 @@ import java.util.Map;
 import jku.ss09.mir.lastfmecho.bo.feature.EpochFeature;
 import jku.ss09.mir.lastfmecho.bo.feature.Feature;
 import jku.ss09.mir.lastfmecho.bo.feature.FeatureFactory;
-import jku.ss09.mir.lastfmecho.bo.feature.TagCloudFeature;
+import jku.ss09.mir.lastfmecho.bo.feature.LastFMTagCloudFeature;
 
 
 import net.roarsoftware.lastfm.Artist;
@@ -62,11 +62,11 @@ public class MirArtist {
 	 * 
 	 * @return tagCloudFeature or null if it was not set
 	 */
-	public TagCloudFeature getTagCloudFeature() {
+	public LastFMTagCloudFeature getLastFMTagCloudFeature() {
 		Feature feature = getFeature(FeatureFactory.FEATURE_TAGCLOUD);
 		if (feature != null) {
-			if (feature instanceof TagCloudFeature) {
-				return (TagCloudFeature) feature;
+			if (feature instanceof LastFMTagCloudFeature) {
+				return (LastFMTagCloudFeature) feature;
 			} else {
 				return null;
 			}

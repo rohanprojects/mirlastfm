@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.commons.lang.StringUtils;
+
 import comirva.util.external.TextFormatTool;
 
 import jku.ss09.mir.lastfmecho.bo.MirArtist;
@@ -21,6 +23,11 @@ import jku.ss09.mir.lastfmecho.utils.CollectionUtils;
 public class TestMisc {
 
 
+//	public static void main(String[] args) {
+//		
+//		System.out.println(StringUtils.countMatches("wrapper rap raprap"," rap "));
+//	}
+	
 	/**
 	 * @param args
 	 */
@@ -68,7 +75,8 @@ public class TestMisc {
 		
 		FileListTermExtractor extractor = new FileListTermExtractor();
 		
-		HashMap<String, Integer> googleTermMap = (HashMap<String, Integer>)artist.getTagCloudFeature().getTopTags().clone();
+		// this is to copy the map / like the clone() interface
+		Map<String, Integer> googleTermMap = new HashMap(artist.getLastFMTagCloudFeature().getTopTags());
 		extractor.run(targetDir,googleTermMap);
 		
 		System.out.println("Term | Google Term | LastFM Term");
@@ -76,7 +84,7 @@ public class TestMisc {
 		Map<String, Integer> sortGoogleTermMap = CollectionUtils.sortByValue(googleTermMap);
 		for (Iterator<Entry<String,Integer>> it = sortGoogleTermMap.entrySet().iterator(); it.hasNext();) {
 			Entry<String,Integer> entry = it.next();
-			Integer lastFMCount = artist.getTagCloudFeature().getTopTags().get(entry.getKey());
+			Integer lastFMCount = artist.getLastFMTagCloudFeature().getTopTags().get(entry.getKey());
 			if (lastFMCount == null) {
 				lastFMCount = 0;
 			};
@@ -86,18 +94,15 @@ public class TestMisc {
 			
 		}
 		
-		System.out.println("--------------------------");
+//		System.out.println("--------------------------");
 		
 //		//sort and display last FM Terms
-//		Map<String, Integer> sortlastFMTermMap = CollectionUtils.sortByValue(artist.getTagCloudFeature().getTopTags());
+//		Map<String, Integer> sortlastFMTermMap = CollectionUtils.sortByValue(artist.getLastFMTagCloudFeature().getTopTags());
 //		for (Iterator<Entry<String,Integer>> it = sortlastFMTermMap.entrySet().iterator(); it.hasNext();) {
 //			Entry<String,Integer> entry = it.next();
 //			System.out.println(entry.getKey() + " " + entry.getValue());
 //			
 //		}
-		
-		
-		
 		
 	}
 	
