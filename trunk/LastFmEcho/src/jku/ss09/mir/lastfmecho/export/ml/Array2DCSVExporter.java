@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import comirva.util.external.TextFormatTool;
+
 import jku.ss09.mir.lastfmecho.utils.TextFileWriter;
 
 public class Array2DCSVExporter {
@@ -50,19 +52,19 @@ public class Array2DCSVExporter {
 			if (xLabels != null) {
 				String xLabelString ="";
 				for (String label : xLabels) {
-					xLabelString+= label + separatorString;
+					xLabelString+= TextFormatTool.removeUnwantedChars(label) + separatorString;
 				}
 				writer.writeLine(separatorString + xLabelString);
 			}
 			
 			
-			DecimalFormat formatter = new DecimalFormat(".######");
+			DecimalFormat formatter = new DecimalFormat("#.######");
 			
 			
 			for (int i = 0; i < array2D.length; i++) {
 				String line = "";
 				if (yLabels != null) {
-					line+= yLabels.get(i) + separatorString; 
+					line+= TextFormatTool.removeUnwantedChars(yLabels.get(i)) + separatorString; 
 				}
 				for (int j = 0; j < array2D[i].length; j++) {
 					line+= formatter.format(array2D[i][j]) + separatorString;				
