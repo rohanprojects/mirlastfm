@@ -20,7 +20,7 @@ public class LastFMTagCloudFeature extends Feature{
 	
 	
 	public LastFMTagCloudFeature(MirArtist artist) {
-		super(artist,FeatureFactory.FEATURE_TAGCLOUD,"TagCloud");
+		super(artist,FeatureFactory.FEATURE_TAGCLOUD_LASTFM,"LastFMTagCloud");
 	}
 	
 	
@@ -28,8 +28,12 @@ public class LastFMTagCloudFeature extends Feature{
 	public boolean calc() {
 		
 		
-		setTags(Artist.getTopTags(artist.getName(), LastFMParser.getApiKey()));
-		normalizeTags();
+		
+		topTags = CollectionUtils.sortByValue(Artist.getTopTags(artist.getName(), LastFMParser.getApiKey()));
+		filterAndRemoveTags(topTags);
+		
+		
+//		normalizeTags();
 		
 		return false;
 	}
@@ -44,22 +48,7 @@ public class LastFMTagCloudFeature extends Feature{
 		return topTagsNorm;
 	}
 	
-	
-	private void setTags(Map<String,Integer> tags){
 
-		
-//		topTags = new HashMap<String,Integer>();
-//		Collection<String> tagNames = tags.keySet();
-//		
-//		for(String name : tagNames){
-//			if(tags.get(name) > 0)
-//				topTags.put(name, tags.get(name));
-//		}
-		
-		
-		topTags = CollectionUtils.sortByValue(tags);
-		filterAndRemoveTags(topTags);
-	}
 	
 	
 	/**
@@ -92,7 +81,7 @@ public class LastFMTagCloudFeature extends Feature{
 			for (int i = 0; i < result.length; i++) {
 				if (tagString.matches("(?i).*"+ result[i].toLowerCase()  +".*")) {
 					//remove
-					System.out.println("\t \t removed " + tagString);
+//					System.out.println("\t \t removed " + tagString);
 					iterator.remove();
 					break;
 				}

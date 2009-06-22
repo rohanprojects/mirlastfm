@@ -24,6 +24,7 @@ import jku.ss09.mir.lastfmecho.bo.MirArtist;
 import jku.ss09.mir.lastfmecho.bo.MirGenre;
 import jku.ss09.mir.lastfmecho.bo.feature.Feature;
 import jku.ss09.mir.lastfmecho.bo.feature.FeatureFactory;
+import jku.ss09.mir.lastfmecho.bo.feature.GoogleTagCloudFeature;
 import jku.ss09.mir.lastfmecho.bo.feature.LastFMTagCloudFeature;
 import jku.ss09.mir.lastfmecho.bo.similarity.ConsineSimilarityLastFMTagCloud;
 import jku.ss09.mir.lastfmecho.bo.visualization.MirArtistNetworkGraphVisualizer;
@@ -142,6 +143,63 @@ public class AppMainJakob {
 //		}
 		
 	
+		//----------------------------------------LASTFM---------------------------------------------------------------------
+//		/**
+//		 * Test - 
+//		 * 1.) retrieve LastFM Tags for all artists , 
+//		 * 2.) calc similarities for all and 
+//		 * 3.) visualize them 
+//		 * 
+//		 */
+//		System.out.println("---------- LastFM Tag Cloud Feature Retrieval ----------");
+//		List<MirArtist> artistList = fileParser.getArtistList();
+//		int idx = 1;
+//		for (MirArtist mirArtist : artistList) {
+//			// 1. this creates and calculates the feature and 
+//			// 2. adds it to the mirArtist
+//			Feature feature = FeatureFactory.createFeatureForArtist(FeatureFactory.FEATURE_TAGCLOUD_LASTFM, mirArtist);
+//			//Todo exception handlingm if a feature cant be created
+//			
+//			mirArtist.addFeature(feature);
+//			System.out.println(idx + " Artist: " + mirArtist.getName() + "  calcFeature  " + feature.getName());
+//			idx++;
+//		}
+//		
+//		//calc similarity Matrix - based on tags
+//		ConsineSimilarityLastFMTagCloud cosinSimilarity = new ConsineSimilarityLastFMTagCloud(1,"CosineSimilarity",artistList);
+//		if (cosinSimilarity.runCalc() == true) {
+////			double[][] res = cosinSimilarity.getResults();
+////			for (int i = 0; i < res.length; i++) {
+////				String line = "";
+////				for (int j = 0; j < res[i].length; j++) {
+////					line+= i + " :"+ res[i][j] +"\t";
+////				}
+////				System.out.println(line);
+////			}
+//			
+//			/**
+//			 * File Export
+//			 */
+//			List<String> artistNames = new ArrayList<String>();
+//			for (MirArtist mirArtist : artistList) {
+//				artistNames.add(mirArtist.getName());
+//			}
+//			System.out.println("FileExport: Write similarity data to file");
+//			String targetDir = dirPath + "/data/results/" + "cosSimLastFMTagCloud.csv";
+//			Array2DCSVExporter exporter = new Array2DCSVExporter(targetDir,";");
+//			exporter.export("Header",cosinSimilarity.getResults(),artistNames,artistNames);
+//			
+//			
+//			/**
+//			 * Visualization
+//			 */
+//			MirArtistNetworkGraphVisualizer vis = new MirArtistNetworkGraphVisualizer(artistList,cosinSimilarity.getResults());
+//			vis.init();
+//			
+//			
+		
+		
+		//----------------------------------------GOOGLE---------------------------------------------------------------------
 		/**
 		 * Test - 
 		 * 1.) retrieve LastFM Tags for all artists , 
@@ -155,49 +213,25 @@ public class AppMainJakob {
 		for (MirArtist mirArtist : artistList) {
 			// 1. this creates and calculates the feature and 
 			// 2. adds it to the mirArtist
-			Feature feature = FeatureFactory.createFeatureForArtist(FeatureFactory.FEATURE_TAGCLOUD, mirArtist);
+			Feature feature = FeatureFactory.createFeatureForArtist(FeatureFactory.FEATURE_TAGCLOUD_GOOGLE, mirArtist);
 			//Todo exception handlingm if a feature cant be created
 			
 			mirArtist.addFeature(feature);
 			System.out.println(idx + " Artist: " + mirArtist.getName() + "  calcFeature  " + feature.getName());
 			idx++;
-		}
-		
-		//calc similarity Matrix - based on tags
-		ConsineSimilarityLastFMTagCloud cosinSimilarity = new ConsineSimilarityLastFMTagCloud(1,"CosineSimilarity",artistList);
-		if (cosinSimilarity.runCalc() == true) {
-//			double[][] res = cosinSimilarity.getResults();
-//			for (int i = 0; i < res.length; i++) {
-//				String line = "";
-//				for (int j = 0; j < res[i].length; j++) {
-//					line+= i + " :"+ res[i][j] +"\t";
-//				}
-//				System.out.println(line);
-//			}
 			
+			GoogleTagCloudFeature googleTagCloudFeature = mirArtist.getGoogleTagCloudFeature();
 			
-			System.out.println("FileExport: Write similarity data to file");
-			String targetDir = dirPath + "/data/results/" + "cosSimLastFMTagCloud.csv";
-			Array2DCSVExporter exporter = new Array2DCSVExporter(targetDir,";");
-			
-			
-			
-			List<String> artistNames = new ArrayList<String>();
-			for (MirArtist mirArtist : artistList) {
-				artistNames.add(mirArtist.getName());
+			for (String key : googleTagCloudFeature.getTopTags().keySet()) {
+				System.out.println("\t" + key + " " + googleTagCloudFeature.getTopTags().get(key));
 			}
 			
-			
-			exporter.export("Header",cosinSimilarity.getResults(),artistNames,artistNames);
-			
-			
-			
-			MirArtistNetworkGraphVisualizer vis = new MirArtistNetworkGraphVisualizer(artistList,cosinSimilarity.getResults());
-			vis.init();
-			
-			
-			
 		}
+		
+		
+			
+			
+		
 		
 		
 		

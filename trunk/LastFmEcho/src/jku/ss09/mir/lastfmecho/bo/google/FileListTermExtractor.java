@@ -51,8 +51,8 @@ public class FileListTermExtractor {
 		
 		for (String term  : terms.keySet()) {
 			int totalCount = terms.get(term);
-			//int thisFileCount = StringUtils.countMatches(fileContent, " " + term.toLowerCase() + " ");
-			int thisFileCount = StringUtils.countMatches(IOUtils.removeTagsSpecialChar(fileContent), term.toLowerCase());
+			int thisFileCount = StringUtils.countMatches(fileContent, " " + term.toLowerCase() + " ");
+			//int thisFileCount = StringUtils.countMatches(IOUtils.removeTagsSpecialChar(fileContent), term.toLowerCase());
 			
 			
 			

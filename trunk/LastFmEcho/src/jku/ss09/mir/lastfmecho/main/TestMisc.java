@@ -59,7 +59,7 @@ public class TestMisc {
 		for (MirArtist mirArtist : artistList) {
 			// 1. this creates and calculates the feature and 
 			// 2. adds it to the mirArtist
-			Feature feature = FeatureFactory.createFeatureForArtist(FeatureFactory.FEATURE_TAGCLOUD, mirArtist);
+			Feature feature = FeatureFactory.createFeatureForArtist(FeatureFactory.FEATURE_TAGCLOUD_LASTFM, mirArtist);
 			//Todo exception handlingm if a feature cant be created
 			
 			mirArtist.addFeature(feature);
@@ -70,7 +70,7 @@ public class TestMisc {
 		
 		MirArtist artist = artistList.get(0);
 		String artistName = TextFormatTool.removeUnwantedChars(artist.getName());
-		String targetDir = dirPath + "/data/download/" + artistName + "/";
+		String targetDir = System.getProperty("user.dir") + "/data/download/" + artistName + "/";
 		
 		
 		FileListTermExtractor extractor = new FileListTermExtractor();
