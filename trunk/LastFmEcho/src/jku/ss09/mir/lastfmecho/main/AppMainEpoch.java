@@ -7,7 +7,7 @@ import jku.ss09.mir.lastfmecho.bo.MusicFileParser;
 import jku.ss09.mir.lastfmecho.bo.feature.Feature;
 import jku.ss09.mir.lastfmecho.bo.feature.FeatureFactory;
 import jku.ss09.mir.lastfmecho.bo.similarity.DistanceSimilarityLastFMEpoch;
-import jku.ss09.mir.lastfmecho.bo.util.MatrixUtils;
+import jku.ss09.mir.lastfmecho.utils.MatrixUtils;
 import jku.ss09.mir.lastfmecho.bo.visualization.MirArtistNetworkGraphVisualizer;
 import static org.math.array.DoubleArray.*;
 import static org.math.array.LinearAlgebra.*;

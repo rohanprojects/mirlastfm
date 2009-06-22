@@ -1,4 +1,4 @@
-package jku.ss09.mir.lastfmecho.bo.util;
+package jku.ss09.mir.lastfmecho.utils;
 
 public class MatrixUtils {
 

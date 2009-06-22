@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jku.ss09.mir.lastfmecho.bo.MirArtist;
-import jku.ss09.mir.lastfmecho.bo.util.MatrixUtils;
+import jku.ss09.mir.lastfmecho.utils.MatrixUtils;
 
 public class DistanceSimilarityLastFMEpoch extends AbstractSimilartityMeasure {
 
