@@ -235,6 +235,7 @@ public class Caller {
 		} catch (IOException e) {
 			throw new CallException(e);
 		} catch (SAXException e) {
+			System.err.println(e.toString());
 			throw new CallException(e);
 		}
 	}

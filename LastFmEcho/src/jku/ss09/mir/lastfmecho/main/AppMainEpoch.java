@@ -7,7 +7,10 @@ import jku.ss09.mir.lastfmecho.bo.MusicFileParser;
 import jku.ss09.mir.lastfmecho.bo.feature.Feature;
 import jku.ss09.mir.lastfmecho.bo.feature.FeatureFactory;
 import jku.ss09.mir.lastfmecho.bo.similarity.DistanceSimilarityLastFMEpoch;
+import jku.ss09.mir.lastfmecho.bo.util.MatrixUtils;
 import jku.ss09.mir.lastfmecho.bo.visualization.MirArtistNetworkGraphVisualizer;
+import static org.math.array.DoubleArray.*;
+import static org.math.array.LinearAlgebra.*;
 
 /**
  * 
@@ -51,10 +54,16 @@ public class AppMainEpoch {
 		List<MirArtist> artistList = fileParser.getArtistList();
 		int idx = 1;
 		for (MirArtist mirArtist : artistList) {
-			System.out.println(mirArtist.getName() + ": " + mirArtist.getGenre());
+			System.out.print(mirArtist.getName() + ": " );
 			// 1. this creates and calculates the feature and 
 			// 2. adds it to the mirArtist
 			Feature feature = FeatureFactory.createFeatureForArtist(FeatureFactory.FEATURE_EPOCH, mirArtist);
+//			try {
+//				Thread.sleep(500);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 			mirArtist.addFeature(feature);
 			System.out.println(idx + " Artist: " + mirArtist.getName() + " calcFeature " + feature.getName());
 			idx++;
@@ -62,19 +71,20 @@ public class AppMainEpoch {
 		
 		
 		//calculate similarity between artists based on their mean year of album releases
+		System.out.println("----------- now calculate similarities ----------------");
 		DistanceSimilarityLastFMEpoch distSimilarity = new DistanceSimilarityLastFMEpoch(1, "DistanceSimilarity", artistList);
 		if(distSimilarity.runCalc()){
-			double[][] res = distSimilarity.getResults();
-			for(int i = 0; i < res.length; i++) {
+			double[][] resultMatrix = distSimilarity.getResults();
+			for(int i = 0; i < resultMatrix.length; i++) {
 				String line = "";
-				for (int j = 0; j < res[i].length; j++) {
-					line+= i + " :"+ res[i][j] +"\t";
+				for (int j = 0; j < resultMatrix[i].length; j++) {
+					line+= i + " :"+ resultMatrix[i][j] +"\t";
 				}
 				System.out.println(line);
 			}
 			
-//			MirArtistNetworkGraphVisualizer vis = new MirArtistNetworkGraphVisualizer(artistList,distSimilarity.getResults());
-//			vis.init();
+			MirArtistNetworkGraphVisualizer vis = new MirArtistNetworkGraphVisualizer(artistList,distSimilarity.getResults());
+			vis.init();
 		}
 		
 

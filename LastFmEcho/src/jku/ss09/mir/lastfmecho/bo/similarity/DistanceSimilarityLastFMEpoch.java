@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jku.ss09.mir.lastfmecho.bo.MirArtist;
+import jku.ss09.mir.lastfmecho.bo.util.MatrixUtils;
 
 public class DistanceSimilarityLastFMEpoch extends AbstractSimilartityMeasure {
 
@@ -24,20 +25,22 @@ public class DistanceSimilarityLastFMEpoch extends AbstractSimilartityMeasure {
 				double similarity = calcSimilarity(artistA, artistB);
 				
 				resultMatrix[i][j] = similarity;
-				if (similarity == Double.MIN_VALUE)
-				{
-					System.out.println("Error in processing Epoch Similarity");
-					
-				} 		
+				
+				if (similarity == -1)
+					System.err.println("Error in processing Epoch Similarity between " + artistA.getName() + " and " + artistB.getName()); 		
 			}
 		}
+		
+		MatrixUtils.normalizeToRange(resultMatrix, false);
+		MatrixUtils.invertNormalizedValues(resultMatrix);
+		
 		return returnValue;
 
 	}
 
 	@Override
 	protected double calcSimilarity(MirArtist artistA, MirArtist artistB) {
-		int similarity = 0;
+		int similarity = -1;
 
 		if (artistA.getEpochFeature() != null && artistB.getEpochFeature() != null) {
 			
@@ -46,27 +49,28 @@ public class DistanceSimilarityLastFMEpoch extends AbstractSimilartityMeasure {
 				ArrayList<Integer> artistBDates = artistB.getEpochFeature().getReleaseDates();
 				
 				//calculate mean release year
-				int artistAMean = calcMean(artistADates);
-				int artistBMean = calcMean(artistBDates);
+				if(artistADates != null && artistADates.size() > 0 && artistBDates != null && artistBDates.size() > 0){
+					int artistAMean = calcMean(artistADates);
+					int artistBMean = calcMean(artistBDates);
 				
-				//calculate difference of mean release years
-				similarity = Math.abs(artistAMean-artistBMean);
-				System.out.println("Epoch similarity between " + artistA.getName() + " and " + artistB.getName()+  ": " + similarity);
-								
+					//calculate difference of mean release years
+					similarity = Math.abs(artistAMean-artistBMean);
+					System.out.println("Epoch distance between " + artistA.getName() + " and " + artistB.getName()+  ": " + similarity);
+				} 							
 				return similarity;
 			} else {
-				System.out.println("Error: DistSimilarityEpoch: no releaseDates found");
-				return Double.MIN_VALUE;
+				System.err.println("Error: DistSimilarityEpoch: no releaseDates found");
+				return similarity;
 			}
 		}  else {
-			System.out.println("Error: DistSimilarityEpoch: no releaseDates feature found");
-			return Double.MIN_VALUE;
+			System.err.println("Error: DistSimilarityEpoch: no releaseDates feature found");
+			return similarity;
 		}		
 	}
 	
 	
 	private int calcMean(ArrayList<Integer> releaseDates){
-		if(releaseDates != null){
+		if(releaseDates != null && releaseDates.size() > 0){
 			int sumYears = 0;
 			
 			for(Integer year : releaseDates)
@@ -74,6 +78,24 @@ public class DistanceSimilarityLastFMEpoch extends AbstractSimilartityMeasure {
 			
 			return (int) sumYears / releaseDates.size();
 		}
-		return 0;
+		return -1;
 	}
+	
+//	private void normalizeResultMatrix(){
+//		double maxValue = 1;
+//		for(int i=0; i < resultMatrix.length; i++){
+//			for(int j=0; j < resultMatrix[i].length; j++){
+//				if(resultMatrix[i][j] > maxValue)
+//					maxValue = resultMatrix[i][j];
+//			}
+//		}
+//		
+//		for(int i=0; i < resultMatrix.length; i++){
+//			for(int j=0; j < resultMatrix[i].length; j++){
+//				resultMatrix[i][j] /= maxValue;
+//			}
+//		}
+//		
+//		
+//	}
 }
