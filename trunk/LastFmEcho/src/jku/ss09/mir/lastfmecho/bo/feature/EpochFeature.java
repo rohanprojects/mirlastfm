@@ -4,8 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
-
 import net.roarsoftware.lastfm.Artist;
 import net.roarsoftware.lastfm.Album;
 
@@ -28,7 +26,19 @@ public class EpochFeature extends Feature{
 	
 	@Override
 	public boolean calc() {
-		setAlbums((Collection<Album>) Artist.getTopAlbums(artist.getName(), LastFMParser.getApiKey()));
+		Collection<Album> tmpTopAlbums = null;
+		try {
+			tmpTopAlbums = Artist.getTopAlbums(artist.getName(), LastFMParser.getApiKey());
+		} catch (Exception e) {
+			System.err.println("No albums retrieved for artist " + artist.getName());
+		} 
+		
+		if(tmpTopAlbums != null)
+			setAlbums((Collection<Album>) tmpTopAlbums);
+		else{
+			System.err.println(" NO topAlbums retrieved?: ");		
+		}
+		
 		return false;	
 	}
 	
@@ -47,7 +57,12 @@ public class EpochFeature extends Feature{
 		releaseDates = new ArrayList<Integer>();
 		
 		for(Album id : topAlbums){
-			Album info = Album.getInfo(id.getArtist(), id.getMbid(), LastFMParser.getApiKey());
+			Album info = null;
+			try {
+				info = Album.getInfo(id.getArtist(), id.getMbid(), LastFMParser.getApiKey());
+			} catch (Exception e) {
+				System.err.println("No infos retrieved for album " + id.getName());
+			}
 			if(info != null){
 //				System.out.print(artist.getName() + ": " + id.getName() + " (");
 				if(info.getReleaseDate() != null){
@@ -61,22 +76,22 @@ public class EpochFeature extends Feature{
 
 			}
 		}
-		System.out.print(artist.getName());
+//		System.out.print(artist.getName());
 		calcMean();
 	}
 	
 	private void calcMean(){
-		if(releaseDates != null){
+		if(releaseDates != null && releaseDates.size() > 0){
 			int sumYears = 0;
 			
 			for(Integer year : releaseDates)
 				sumYears += year;
 			
 			meanYear = sumYears / releaseDates.size();
-			System.out.println(" Mittelwert: " + meanYear);
-		}
-		
-		
+			System.out.println("Mittelwert: " + meanYear);
+		}	
+		else 
+			System.err.println("No release dates available. " );
 	}
 	
 
