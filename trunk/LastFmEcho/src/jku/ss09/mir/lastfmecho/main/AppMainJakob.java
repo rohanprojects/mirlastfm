@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.Vector;
 
+import org.apache.commons.lang.ArrayUtils;
+
 
 import comirva.util.external.URLRetriever;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
@@ -27,6 +29,7 @@ import jku.ss09.mir.lastfmecho.bo.similarity.ConsineSimilarityLastFMTagCloud;
 import jku.ss09.mir.lastfmecho.bo.visualization.MirArtistNetworkGraphVisualizer;
 import jku.ss09.mir.lastfmecho.comirva.utils.GoogleUrlRetriever;
 import jku.ss09.mir.lastfmecho.comirva.utils.TermProfileUtils;
+import jku.ss09.mir.lastfmecho.export.ml.Array2DCSVExporter;
 import jku.ss09.mir.lastfmecho.utils.HTMLFileFilter;
 import jku.ss09.mir.lastfmecho.utils.UrlDownloader;
 
@@ -172,8 +175,27 @@ public class AppMainJakob {
 //				System.out.println(line);
 //			}
 			
+			
+			System.out.println("FileExport: Write similarity data to file");
+			String targetDir = dirPath + "/data/results/" + "cosSimLastFMTagCloud.csv";
+			Array2DCSVExporter exporter = new Array2DCSVExporter(targetDir,";");
+			
+			
+			
+			List<String> artistNames = new ArrayList<String>();
+			for (MirArtist mirArtist : artistList) {
+				artistNames.add(mirArtist.getName());
+			}
+			
+			
+			exporter.export("Header",cosinSimilarity.getResults(),artistNames,artistNames);
+			
+			
+			
 			MirArtistNetworkGraphVisualizer vis = new MirArtistNetworkGraphVisualizer(artistList,cosinSimilarity.getResults());
 			vis.init();
+			
+			
 			
 		}
 		
