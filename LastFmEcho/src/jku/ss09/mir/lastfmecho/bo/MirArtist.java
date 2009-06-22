@@ -8,6 +8,8 @@ import jku.ss09.mir.lastfmecho.bo.feature.EpochFeature;
 import jku.ss09.mir.lastfmecho.bo.feature.Feature;
 import jku.ss09.mir.lastfmecho.bo.feature.FeatureFactory;
 import jku.ss09.mir.lastfmecho.bo.feature.LastFMTagCloudFeature;
+import jku.ss09.mir.lastfmecho.bo.feature.GoogleTagCloudFeature;
+import jku.ss09.mir.lastfmecho.comirva.utils.GoogleUrlRetriever;
 
 
 import net.roarsoftware.lastfm.Artist;
@@ -63,7 +65,7 @@ public class MirArtist {
 	 * @return tagCloudFeature or null if it was not set
 	 */
 	public LastFMTagCloudFeature getLastFMTagCloudFeature() {
-		Feature feature = getFeature(FeatureFactory.FEATURE_TAGCLOUD);
+		Feature feature = getFeature(FeatureFactory.FEATURE_TAGCLOUD_LASTFM);
 		if (feature != null) {
 			if (feature instanceof LastFMTagCloudFeature) {
 				return (LastFMTagCloudFeature) feature;
@@ -74,6 +76,25 @@ public class MirArtist {
 		return null;
 		
 	}
+	
+	/**
+	 * getsGoogleTagCloudFeature if it was created for this artist
+	 * 
+	 * @return tagCloudFeature or null if it was not set
+	 */
+	public GoogleTagCloudFeature getGoogleTagCloudFeature() {
+		Feature feature = getFeature(FeatureFactory.FEATURE_TAGCLOUD_GOOGLE);
+		if (feature != null) {
+			if (feature instanceof GoogleTagCloudFeature) {
+				return (GoogleTagCloudFeature) feature;
+			} else {
+				return null;
+			}
+		}
+		return null;
+		
+	}
+	
 	
 	/**
 	 * getsEpochFeature if it was created for this artist
