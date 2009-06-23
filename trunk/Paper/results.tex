@@ -1,6 +1,23 @@
 \section{Ergebnisse}
-% Vergleich LastFM Tags zu Epoche
-\subsection{Epochen von Artists}
+% Vergleich LastFM Tags zu Wirkungszeit
+\subsection{Wirkungszeiten von Artists}
+Die Mittelwertberechnung der Album-Releasedates ist mäßig gut geeignet, um Künstler dergleichen Wirkungszeit zu vergleichen. Das Resultat spiegelt gut wieder, wann die meisten Alben veröffentlicht wurden. Die Jahreszahl stimmt mit der aktiven Schaffensperiode ganz gut überein, zumindest bei Künstlern der letzten 30 Jahre ist das Ergebnis akzeptabel. Allerdings wurde bei dieser Berechnung nicht berücksichtigt, ob das One-Hit/Album-Wonder waren oder Künstler, die bereits seit 20 oder mehr Jahren regelmäßig Alben produzieren. Bei Künstlern mit weniger Alben repräsentiert der Wert daher die Schaffensperiode exakter.
+
+Bei älteren oder schon verstorbenen Künstlern hat das berechnete Jahr meist nichts mit der aktiven Schaffensperiode des Künstlers gemein. Das trifft vor allem auf Künstler des Klassik-Genres zu, bei denen erst nach ihrer Lebenszeit Album veröffentlicht wurden (Wolfgang Amadeus Mozart: 1993, Joseph Haydn: 1994, Johannes Brahms: 1994, Ludwig van Beethoven: 1996, Johann Sebastian Bach: 2000). Darüberhinaus sind ältere Künstler in LastFM schlechter und ungenauer abgebildet.
+
+Verbesserungsideen:
+1)	Andere Berechnungsart
+a.	Mittelwert, aber Werte außerhalb der Standardabweichung nicht berücksichtigen 
+b.	Median statt Mittelwert
+c.	Schaffensperiode (nicht nur 1 repräsentativer Wert für die Wirkungszeit, sondern Von-Bis)verwenden und den Überschneidungsanteil zweier Künstlerperioden berechnen. 
+2)	Pre-Filtering der verwendeten Alben
+a.	Eliminieren von Alben mit Titeln wie Best-Of, Greatest Hits, etc.
+3)	Kombination mit weiteren Informationen
+a.	Verknüpfung der Releasedates mit den Jahreszahlen von Events (Konzerte, Auftritte, etc.) der Künstler.
+b.	Zusätzliche Infos der Artisten miteinbeziehen, z.B. ob sie überhaupt noch am Leben sind, usw.
+
+GRAFIKEN FOLGEN NOCH
+
 
 % Vergleich LastFM Aehnlichkeit zu Google Aehnlichkeit
 \subsection{LastFM- zu Google-Genre"ahnlichkeit}
