@@ -2,13 +2,26 @@
 
 
 \subsection{Datenquellen}
+\subsubsection{Textbasiertes Genre-Artist-Mapping}
+Verwendet für...
 
+\subsubsection{LastFM}
+Verwendet für Albeninfos für Epochenberechnung und für TagClouds, auch als Ground-Truth für die Klassifizierung.
+
+\subsubsection{Google}
+TagClouds durch Termfrequency
 
 \subsection{Feature Extraction}
+\subsubsection{Albumbasierte Epoche}
+
+\subsubsection{TagClouds}
 
 
-\subsection{"Ahnlichkeitsmessungen}
-\subsubsection{Cosine-Similarity}
+\subsection{Ähnlichkeitsmessungen}
+\subsubsection{Differenz von skalaren Werten}
+
+
+\subsubsection{Cosinus-Similarity}
 Ein Ma"s zur Bestimmung der "Ahnlichkeit der K"unstler in der LastFM Datenbank ist die Auswertung der Tags und ein Vergleich auf deren "Ubereinstimmung.
 Dazu wurden die Tags der K"unstler mit der API ausgelesen und anschlie"send die "Ahnlichkeit mit der aus der LV bekannten Formel der Cosine Similarity bestimmt:
 
