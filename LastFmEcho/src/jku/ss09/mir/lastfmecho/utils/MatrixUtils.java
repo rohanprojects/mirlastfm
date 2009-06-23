@@ -9,26 +9,29 @@ public class MatrixUtils {
 	 * otherwise only max value (and 0 as min value) is considered
 	 */
 	public static void normalizeToRange(double[][] matrix, boolean range){
-		double minValue = 0;
-		double maxValue = 1;
-		for(int i=0; i < matrix.length; i++){
-			for(int j=0; j < matrix[i].length; j++){
-				if(matrix[i][j] > maxValue)
-					maxValue = matrix[i][j];
-				if(matrix[i][j] < minValue);
-					minValue = matrix[i][j];
+		if(matrix != null && matrix.length > 0 && matrix[0].length > 0){
+			double minValue = matrix[0][0];
+			double maxValue = matrix[0][0];;
+		
+			for(int i=0; i < matrix.length; i++){
+				for(int j=0; j < matrix[i].length; j++){
+					if(matrix[i][j] > maxValue)
+						maxValue = matrix[i][j];
+					if(matrix[i][j] < minValue);
+						minValue = matrix[i][j];
+				}
+			}
+			
+			System.out.println("RANGE: " + minValue + " - " + maxValue);
+			for(int i=0; i < matrix.length; i++){
+				for(int j=0; j < matrix[i].length; j++){
+					if(range && (maxValue-minValue) != 0)
+						matrix[i][j] = matrix[i][j] / (maxValue-minValue);
+					else if(maxValue != 0)
+						matrix[i][j] = matrix[i][j] / maxValue;
+				}
 			}
 		}
-		
-		System.out.println("RANGE: " + minValue + " - " + maxValue);
-		for(int i=0; i < matrix.length; i++){
-			for(int j=0; j < matrix[i].length; j++){
-				if(range)
-					matrix[i][j] = matrix[i][j] / (maxValue-minValue);
-				else
-					matrix[i][j] = matrix[i][j] / maxValue;
-			}
-		}	
 	}
 	
 	public static void invertNormalizedValues(double[][] matrix){
