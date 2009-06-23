@@ -4,9 +4,29 @@
 Weiters ist \textit{LastFM} auch ein gro"ses soziales Netzwerk, dass vor allem auf das zusammenbringen von Menschen mit "ahnlichem Musikgeschmack ausgelegt ist. Die User der Community tragen zur Klassifikation des Musikbestandes durch tagging, Wiki-Betr"age und einfach ihr H"orverhalten bei. Mehr dazu in Abschnitt \ref{features_lastfm}.
 
 \subsection{Geschichtlicher "Uberblick}
-\textit{LastFM} wurde in den sp"aten 90er Jahren als Online-Musiklabel gegr"undet und bot als Feature die M"oglichkeit, sich durch die Art der konsumierten Musikst"ucke ein Profil "uber seinen Musikgeschmack zu erstellen. Die Firma \textit{Audioscrobbler}, hervorgegangen aus einem Informatikprojekt, hatte sehr "ahnliche Ideen, worauf hin beide Unternehmen sehr eng zusammenarbeiteten, bis sie schlie"slich im Jahr 2005 fusionierten und unter dem Namen \textit{LastFM} die Funktionen von beiden Technologien zur Verf"ugung stellen.
+\textit{LastFM} wurde in den sp"aten 90er Jahren als Online-Musiklabel gegr"undet und bot als Feature die M"oglichkeit, sich durch die Art der konsumierten Musikst"ucke ein Profil "uber seinen Musikgeschmack zu erstellen. Die Firma \textit{Audioscrobbler}, hervorgegangen aus einem Informatikprojekt, hatte sehr "ahnliche Ideen, worauf hin beide Unternehmen sehr eng zusammenarbeiteten, bis sie schlie"slich im Jahr 2005 fusionierten und unter dem Namen \textit{LastFM} die Funktionen beider Technologien zur Verf"ugung stellen.
 2007 wurde \textit{LastFM} um den Preis von 280 Millionen Dollar an das US-amerikanische Medienunternehmen CBS verkauft. Diese "Ubernahme geh"ort damit zu den gr"o"sten dotcom Aquisitionen bisher. 
+
 Seit April 2009 ist die Benutzung des Radiodienstes nur mehr in den USA, Gro"sbritannien und Deutschland kostenlos m"oglich. In anderen L"andern muss ein Entgelt von 3 Euro f"ur die monatliche Nutzung erbracht werden.
 
+\subsection{Die LastFM-API}
+\label{features_lastfm}
+\subsubsection{Verf"ugbare Information}
+Das gro"se Motto von LastFM lautet \"Finde die Musik, die du magst und zeige mir die Leute, die einen "ahnlichen Musikgeschmack haben\". Dazu ist es nat"urlich notwendig, dass der Dienst eine Menge Daten "uber die User aquiriert und ein genaues Nutzerprofil erstellt. Ebenso muss der Dienst so gut wie m"oglich "uber die Bands und deren Eigenschaften bescheid wissen, damit eine sinnvolle Einteilung m"oglich wird.
 
+Hauptquelle f"ur Informationen "uber Musikst"ucke und K"unstlerInnen sind die User der Community. Das Profil "uber das H"orverhalten eines Users wird durch sein/ihr H"orverhalten bestimmt. Der LastFM-Player "ubermittelt dabei an LastFM, welche Musikst"ucke konsumiert werden (das sogenannte \textit{scrobbeln}). Auf der Ebene der K"unstlerInnen werden Informationen aquiriert, indem die User diese taggen k"onnen oder detaillierte Informationen in einem Band-Wiki eintragen. Ob auch Band-Infos von Plattenlabels oder anderen professionellen Marketingagenturen hier mit einbezogen werden ist nicht bekannt, jedenfalls kann man "uber das Online-Portal auch eine Menge Hintergrundinformatonen und aktuelle Auftritte (k"unstlerInnen- oder regionsbezogen) erfahren. 
 
+Ein Problem, das sich mit dieser Art der Informationssammlung ergibt ist, dass die Information nur auf K"unstlerInnenebene, aber nicht auf Track-Ebene vorhanden ist. Dadurch wird die eventuell gegebene Vielseitigkeit oder musikalische Entwicklung einer Band verschwommen und wird nicht so behandelt, wie es notwendig w"are. 
+
+Ein weiteres Problem ist die fehlende Unterscheidung von unterschiedlichen Bands, die aber denselben Namen haben. Diese werden zwangsl"aufig in ein Profil zusammengef"uhrt. Umgekehrt kann es auch in seltenen F"allen passieren, dass ein K"unstler in mehreren Profilen vorhanden ist (f"ur Mozart existieren etwa die Profile: "Wolfgang Amadeus Mozart" und "Mozart").
+
+\subsubsection{Technischer "Uberblick}
+Die meisten dieser Infos lassen sich direkt "uber die Webseite, oder eine Webservice-API abrufen. Die API ist zu denselben Bedingungen verf"ugbar wie die Nutzung des Radiodienstes, d.h. au"serhalb US, UK und DE muss man einen geringes monatliches Entgelt entrichten. Nur wenn man die API in gro"sem Stil nutzen will sind eigene Nutzungsbedingungen mit den Betreibern auszuverhandeln.
+
+Technisch basiert die Web-API auf dem REST-Standard (XML), Abfragen sind somit unkompliziert via HTTP m"oglich. Unter anderem lassen sich K"unstlerdaten (Bio, Alben, Events, Top-Songs, Tags, ...), Geodaten (Events in der Umgebung, beliebteste K"unstler, ...), Userdaten (Top-Artists, Friends, Neighbours, ...) und viele mehr. F"ur eine Dokumentation mit Anwendungsbeispielen sei auf \textit{http://www.lastfm.de/api/intro} verwiesen. 
+
+Es exisitieren eine Reihe von Wrapper-APIs von Dritten f"ur unterschiedliche Technologien, damit man die Web-API auch unkompliziert in andere Anwendungen einbinden kann. Die Qualit"at dieser Implementierungen ist unterschiedlich und es kann durchaus sein dass diese nicht am aktuellen Stand der Web-API sind.
+
+Es existieren bereits eine Reihe von Audioplayern und anderen Applikationen, die diese API auch direkt nutzen. Unter \textit{http://build.last.fm} gibt es einen Showcase.
+
+\subsection{Die Anwendung von LastFM f"ur MIR-Zwecke}
