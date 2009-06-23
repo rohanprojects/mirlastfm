@@ -18,16 +18,16 @@ Für die aktivste Wirkungszeit eines Künstlers wurde ein Feature (skalarer Datenw
 
 Die aktivste Wirkungszeit wurde anhand der Anzahl und des Erscheinungsjahres der veröffentlichten Alben eines Künstlers berechnet. Dazu wurden sämtliche Alben inkl. deren Releasedates mit Hilfe der LastFM-API extrahiert. Die API stellt dazu die Funktion \texttt{artist.getTopAlbums} zur Verfügung. Von den zurückgegebenen Alben können in der Folge mit der Funktion \texttt{album.getInfo} nähere Infos, u.a. das ReleaseDate des Albums, abgefragt werden.
 
-Für die Berechnung des Features wurden sämtliche Releasedates addiert und ihr \textit{Mittelwert} gebildet. Es soll das mittlere Jahr der gesamten (bisherigen) Wirkungszeit repräsentieren. 
+Für die Berechnung des Features wurden sämtliche Releasedates addiert und ihr \textit{Mittelwert} gebildet. Das Ergebnis repräsentiert das mittlere Jahr der gesamten (bisherigen) Wirkungszeit. 
 
 \subsubsection{TagClouds}
 
 
 \subsection{Ähnlichkeitsmessungen}
 \subsubsection{Differenz von skalaren Werten}
-Das in Kap.\ \ref{feature_wirkungszeit} berechnete Feature wurde für die Berechnung des Ähnlichkeitsmaßes verwendet. Dieses soll darstellen, welche Künstler zur selben Zeit am aktivsten (hinsichtlicher der produzierten Alben) waren. Optimalerweise lässt sich daraus auch eine gewisse Genreähnlichkeit der Künstler feststellen, da gewisse Genres, z.B. Electronic, Punk, etc. sehr typisch für gewisse Zeitepochen der Geschichte sind. Für Rock, Pop oder Heavy Metall trifft das kaum oder gar nicht zu.
+Das in Kap.\ \ref{feature_wirkungszeit} berechnete Feature wurde für die Berechnung des Ähnlichkeitsmaßes verwendet. Dieses soll darstellen, welche Künstler zur selben Zeit am aktivsten (hinsichtlich der produzierten Alben) waren. Optimalerweise lässt sich daraus auch eine gewisse Genreähnlichkeit der Künstler feststellen, da gewisse Genres, z.B. Electronic, Punk, etc. sehr typisch für gewisse Zeitepochen der Geschichte sind. Für Rock, Pop oder Heavy Metal trifft das kaum oder gar nicht zu.
 
-Die Höhe der Ähnlichkeit wurde aus der Distanz zwischen den skalaren Featurewerten zweier Künstler berechnet. Je näher sich die Features selbst waren (ähnliche Jahreszahlen), desto geringer ist die Differenz. Folglich musste diese Distanz (nach erfolgter Normalisierung anhand der Featurewerte) invertiert werden, damit höhere Werte ein höheres Maß an Ähnlichkeit ausdrücken. Letztendlich bewegt sich diese zwischen den Werten 0.0 (keine Ähnlichkeit) und 1.0 (idente aktivste Wirkungszeit). 
+Die Höhe der Ähnlichkeit wird aus der Distanz zwischen den skalaren Featurewerten zweier Künstler berechnet. Je näher sich die Features sind (ähnliche Jahreszahlen), desto geringer ist die Differenz. Folglich muss diese Distanz (nach erfolgter Normalisierung anhand der Featurewerte) invertiert werden, damit höhere Werte ein höheres Maß an Ähnlichkeit ausdrücken. Letztendlich bewegt sich diese zwischen den Werten 0.0 (keine Ähnlichkeit) und 1.0 (idente aktivste Wirkungszeit). 
 
 \subsubsection{Cosinus-Similarity}
 Ein Ma"s zur Bestimmung der "Ahnlichkeit der K"unstler in der LastFM Datenbank ist die Auswertung der Tags und ein Vergleich auf deren "Ubereinstimmung.

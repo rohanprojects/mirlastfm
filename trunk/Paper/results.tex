@@ -1,22 +1,56 @@
 \section{Ergebnisse}
 % Vergleich LastFM Tags zu Wirkungszeit
 \subsection{Wirkungszeiten von Artists}
-Die Mittelwertberechnung der Album-Releasedates ist mäßig gut geeignet, um Künstler dergleichen Wirkungszeit zu vergleichen. Das Resultat spiegelt gut wieder, wann die meisten Alben veröffentlicht wurden. Die Jahreszahl stimmt mit der aktiven Schaffensperiode ganz gut überein, zumindest bei Künstlern der letzten 30 Jahre ist das Ergebnis akzeptabel. Allerdings wurde bei dieser Berechnung nicht berücksichtigt, ob das One-Hit/Album-Wonder waren oder Künstler, die bereits seit 20 oder mehr Jahren regelmäßig Alben produzieren. Bei Künstlern mit weniger Alben repräsentiert der Wert daher die Schaffensperiode exakter.
 
-Bei älteren oder schon verstorbenen Künstlern hat das berechnete Jahr meist nichts mit der aktiven Schaffensperiode des Künstlers gemein. Das trifft vor allem auf Künstler des Klassik-Genres zu, bei denen erst nach ihrer Lebenszeit Album veröffentlicht wurden (Wolfgang Amadeus Mozart: 1993, Joseph Haydn: 1994, Johannes Brahms: 1994, Ludwig van Beethoven: 1996, Johann Sebastian Bach: 2000). Darüberhinaus sind ältere Künstler in LastFM schlechter und ungenauer abgebildet.
+Die folgenden Ergebnisse beruhen auf dem Vergleich von je 3 Artists aus insgesamt 14 Genres. Bei einem Ähnlichkeitswert von > 0,75 zeigt sich, dass viele Künstler in ihrer Wirkungszeit eng beieinander liegen (Abb.\ \ref{fig:0.75 Similarity}). Nur einige wenige Künstler wie Miles Davis, Dave Brubeck, Leonard Cohen und Kraftwerk heben sich von den anderen ab. 
 
-Verbesserungsideen:
-1)	Andere Berechnungsart
-a.	Mittelwert, aber Werte außerhalb der Standardabweichung nicht berücksichtigen 
-b.	Median statt Mittelwert
-c.	Schaffensperiode (nicht nur 1 repräsentativer Wert für die Wirkungszeit, sondern Von-Bis)verwenden und den Überschneidungsanteil zweier Künstlerperioden berechnen. 
-2)	Pre-Filtering der verwendeten Alben
-a.	Eliminieren von Alben mit Titeln wie Best-Of, Greatest Hits, etc.
-3)	Kombination mit weiteren Informationen
-a.	Verknüpfung der Releasedates mit den Jahreszahlen von Events (Konzerte, Auftritte, etc.) der Künstler.
-b.	Zusätzliche Infos der Artisten miteinbeziehen, z.B. ob sie überhaupt noch am Leben sind, usw.
+Anhand von Miles Davis ist dieses Ergebnis so zu interpretieren, dass er ausschließlich zu Dave Brubeck eine Ähnlichkeit > 0,75 aufweist (5 Jahre Differenz zwischen den Wirkungszeiten 1982 und 1987). Zu allen anderen Künstlern ist die Ähnlichkeit zu gering und wird daher nicht visualisiert (keine Verbindungslinie). Die Wirkungszeit von Kraftwerk (1990) ist hingegen schon zu wesentlich mehr Künstlern ähnlich, z.B. Leonard Cohen (1989), Taj Mahal (1993), uvm. 
 
-GRAFIKEN FOLGEN NOCH
+In der Abbildung kann man des Weiteren auch die zeitliche Abfolge erkennen. The Rolling Stones und Justin Timberlake (beide eng beisammen liegend - jeweils das Jahr 2003) sind am weitesten von Miles Davis entfernt (21 Jahre). Bob Marley (1997) oder Nirvana (1998) liegen hingegen eher im Mittelfeld.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\textwidth]{images/75 Similarity.pdf} % \textwidth
+	\caption{Ähnlichkeiten der Wirkungszeit > 0,75}
+	\label{fig:0.75 Similarity}
+\end{figure}
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\textwidth]{images/87 Similarity.pdf} % \textwidth
+	\caption{Ähnlichkeiten der Wirkungszeit > 0,87}
+	\label{fig:0.87 Similarity}
+\end{figure}
+
+Erhöht man den Mindest-Ähnlichkeitswert auf 0,87 so wird die Trennung der Wirkungszeiten deutlicher sichtbar und es es werden erste Gruppierungen sichtbar (Abb.\ \ref{fig:0.87 Similarity}). Die relativ jungen Künstler wie Eminem (2002), Sean Paul (2002), The Chemical Brothers (2002), Justin Timberlake (2003), usw. gruppieren sich im untern Teil der Visualisierung. Die zuvor genannten "`Ausreißer"' Leonard Cohen, Dave Brubeck und Kraftwerk haben zu keinem der anderen Künstler mehr eine so hohe Ähnlichkeit.
+
+Definiert man in der Folge ein noch höheres Ähnlichkeitsmaß von 0,96 so werden die Künstler bereits zu stark bzw. bereits fast nach den Featurewerten selbst getrennt (Abb.\ \ref{fig:0.96 Similarity}).
+
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\textwidth]{images/96 Similarity.pdf} % \textwidth
+	\caption{Ähnlichkeiten der Wirkungszeit > 0,96}
+	\label{fig:0.96 Similarity}
+\end{figure}
+
+\paragraph{Mängel}
+Bei älteren oder schon verstorbenen Künstlern hat das berechnete Jahr meist gar nichts mit der aktiven Schaffensperiode des Künstlers gemein. Das trifft vor allem auf Künstler des Klassik-Genres zu, bei denen erst nach ihrer Lebenszeit Album veröffentlicht wurden, z.B.\ Wolfgang Amadeus Mozart (1993), Johannes Brahms: 1994, Johann Sebastian Bach (2000). Darüberhinaus sind ältere Künstler in LastFM generell schlechter und ungenauer abgebildet.
+
+\paragraph{Genreähnlichkeiten}
+Auf den ersten Blick meint man bei dem Ähnlichkeitswert von 0,96 eine gewisse Genreähnlichkeit der Künstler erkennen zu können, z.B. bei Nirvana, The Smashing Pumpkins und Beck des Genres Alternative Rock/Indie, aber hierfür hat die gewählte Ähnlichkeit einen zu großen Wert (einige Jahre Spielraum sind dafür Voraussetzung). Die niedrigere Grenze für das Ähnlichkeitsmaß von 0,87 hingegen, bildet Genreähnlichkeiten etwas besser ab (Abb.\ \ref{fig:0.87 Similarity}), z.B.\ Eminem und Missy Elliott (Rap/Hip-Hop) oder The Chemical Brothers und Fatboy Slim (Electronic). Empfehlenswert ist eine Bewertung der Genreähnlichkeit auf Basis der Wirkungszeit aufgrund der großen Ungenauigkeiten und vielen Ausreißer allerdings nicht.
+
+\paragraph{Fazit}
+Die Mittelwertberechnung der Album-Releasedates ist basierend auf den beschriebenen Ergebnissen relativ gut geeignet, um Künstler der gleichen Wirkungszeit zu vergleichen. Das Resultat spiegelt gut wieder, wann die meisten Alben veröffentlicht wurden. Die berechte Jahreszahl (das Feature) stimmt mit der aktiven Schaffensperiode ganz gut überein, und zumindest bei Künstlern der letzten 30 Jahre ist das Ergebnis akzeptabel. Allerdings wurde bei dieser Berechnung nicht berücksichtigt, ob es sich um One-Hit/Album-Wonder handelt oder Künstler, die bereits seit 20 oder mehr Jahren regelmäßig Alben produzieren. Bei Künstlern mit weniger Alben repräsentiert der Wert daher die Wirkungszeit exakter.
+
+\paragraph{Optimierungsvorschläge}
+Um für die Berechnung des beschriebenen Ähnlichkeitsmaßes der Wirkungszeit von Künstlern aussagekräftigere und weniger fehlerhafte Ergebnisse zu erzielen, gibt es unterschiedlichste Ansätze: 
+
+\begin{enumerate}
+	\item \textit{Andere Berechnungsart des Features} Anbieten würde sich hiefür beispielsweise (i) der Mittelwert ohne Berücksichtigung von Alben-Releasedates außerhalb der Standardabweichung, (ii) der Median- anstatt des Mittelwerts oder (iii) die Ausdehnung der Wirkungszeit auf einen Bereich (von - bis). Im letzten Fall muss der Anteil der Überschneidung zweier Künstlerwirkungszeiten berechnet werden.
+	\item \textit{Pre-Filtering der verwendeten Alben} Ziel des Pre-Filterings ist das Eliminieren von Alben, die nichts über die Wirkungszeit eines Künstlers aussagen. Zu solchen Alben zählen jene mit Titeln wie Best-Of, Greatest Hits, etc.
+	\item \textit{Kombination mit weiteren Informationen} Durch die Berücksichtigung weiterer Informationen beim Berechnen des Wirkungszeit-Features bzw. die Ergänzung desselbigen durch weitere Features kann die Fehlerrate reduziert werden. Denkbar ist (i) die Miteinbeziehung von Jahreszahlen von Events (Konzerte, Auftritte, etc.) der Künstler oder (ii) die Verknüpfung mit zusätzlichen Infos der Künstler, z.B. ob sie überhaupt zu der Zeit noch gelebt haben, usw.
+\end{enumerate}
 
 
 % Vergleich LastFM Aehnlichkeit zu Google Aehnlichkeit
