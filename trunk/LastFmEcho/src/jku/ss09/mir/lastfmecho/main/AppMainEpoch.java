@@ -33,7 +33,7 @@ public class AppMainEpoch {
 
 		String dirPath = System.getProperty("user.dir");
 		System.out.println(dirPath);
-		String targetDir = dirPath + "/data/results" + "epoch.txt";
+		String targetDir = dirPath + "/data/results/" + "epoch.txt";
 		
 		try {
 			writer = new TextFileWriter(targetDir);
