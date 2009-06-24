@@ -1,6 +1,7 @@
 package jku.ss09.mir.lastfmecho.main;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import jku.ss09.mir.lastfmecho.bo.MirArtist;
@@ -11,6 +12,7 @@ import jku.ss09.mir.lastfmecho.bo.similarity.DistanceSimilarityLastFMEpoch;
 import jku.ss09.mir.lastfmecho.utils.MatrixUtils;
 import jku.ss09.mir.lastfmecho.utils.TextFileWriter;
 import jku.ss09.mir.lastfmecho.bo.visualization.MirArtistNetworkGraphVisualizer;
+import jku.ss09.mir.lastfmecho.export.ml.Array2DCSVExporter;
 import static org.math.array.DoubleArray.*;
 import static org.math.array.LinearAlgebra.*;
 
@@ -110,6 +112,23 @@ public class AppMainEpoch {
 				System.out.println(line);
 			}
 			
+			/**
+			 * File Export of result matrix
+			 */
+			List<String> artistNames = new ArrayList<String>();
+			List<String> classLabels = new ArrayList<String>();
+			for (MirArtist mirArtist : artistList) {
+				artistNames.add(mirArtist.getName());
+				classLabels.add(mirArtist.getGenre().getName());
+			}
+			System.out.println("FileExport: Write similarity data to file");
+			String targetDir2 = dirPath + "/data/results/" + "epochSimFMTagMatrix.csv";
+			Array2DCSVExporter exporter = new Array2DCSVExporter(targetDir2,";");
+			exporter.export("Header",distSimilarity.getResults(),artistNames,artistNames);
+			
+			/**
+			 * Visualization
+			 */
 			MirArtistNetworkGraphVisualizer vis = new MirArtistNetworkGraphVisualizer(artistList,distSimilarity.getResults());
 			vis.init();
 		}
