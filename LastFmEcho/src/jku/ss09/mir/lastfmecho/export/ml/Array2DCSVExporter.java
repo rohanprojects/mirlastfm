@@ -52,7 +52,7 @@ public class Array2DCSVExporter {
 			if (xLabels != null) {
 				String xLabelString ="";
 				for (String label : xLabels) {
-					xLabelString+= TextFormatTool.removeUnwantedChars(label) + separatorString;
+					xLabelString+= label + separatorString; // TextFormatTool.removeUnwantedChars(
 				}
 				writer.writeLine(separatorString + xLabelString);
 			}
@@ -64,7 +64,7 @@ public class Array2DCSVExporter {
 			for (int i = 0; i < array2D.length; i++) {
 				String line = "";
 				if (yLabels != null) {
-					line+= TextFormatTool.removeUnwantedChars(yLabels.get(i)) + separatorString; 
+					line+= yLabels.get(i) + separatorString; // TextFormatTool.removeUnwantedChars( 
 				}
 				for (int j = 0; j < array2D[i].length; j++) {
 					line+= formatter.format(array2D[i][j]) + separatorString;				
