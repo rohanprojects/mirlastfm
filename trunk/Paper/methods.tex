@@ -18,7 +18,47 @@ Für die aktivste Wirkungszeit eines Künstlers wurde ein Feature (skalarer Datenw
 
 Die aktivste Wirkungszeit wurde anhand der Anzahl und des Erscheinungsjahres der veröffentlichten Alben eines Künstlers berechnet. Dazu wurden sämtliche Alben inkl. deren Releasedates mit Hilfe der LastFM-API extrahiert. Die API stellt dazu die Funktion \texttt{artist.getTopAlbums} zur Verfügung. Von den zurückgegebenen Alben können in der Folge mit der Funktion \texttt{album.getInfo} nähere Infos, u.a. das ReleaseDate des Albums, abgefragt werden.
 
-Für die Berechnung des Features wurden sämtliche Releasedates addiert und ihr \textit{Mittelwert} gebildet. Das Ergebnis repräsentiert das mittlere Jahr der gesamten (bisherigen) Wirkungszeit. 
+Für die Berechnung des Features wurde von sämtlichen Releasedates ihr \textit{artithmetischer Mittelwert} gebildet. Das Ergebnis repräsentiert das mittlere Jahr der gesamten (bisherigen) Wirkungszeit. Tab.\ \ref{tab:Wirkungszeit_Features} zeigt die Ergebnisse der Featureberechnung.
+
+\begin{equation}
+ \bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i 
+\end{equation}
+
+\renewcommand{\arraystretch}{1.12}
+\begin{table}[!t]%[htbp]
+  \caption{42 Künstler nach Wirkungszeit(WZ)-Feature sortiert.}
+  \label{tab:Wirkungszeit_Features}
+  \centering
+    \begin{tabular}{|l|l|l||l|l|l|}
+      \hline
+      % & \multicolumn{5}{c|}{Test set} \\ \hline
+      Künstler & WZ & Genre &  Künstler & WZ & Genre \\ \hline \hline
+      
+     	Miles Davis&1982&Jazz&Ramones&1997&Punk\\ \hline
+    	Dave Brubeck&1987&Jazz&Bad Religion&1997&Punk\\ \hline
+     	Leonard Cohen&1989&Folk&PublicEnemy&1997&Rap/Hip-Hop\\ \hline
+			Kraftwerk&1990&Electronica&Bob Marley&1997&Reggae\\ \hline
+			Taj Mahal&1993&Blues&Madonna&1997&Pop\\ \hline
+			Aretha Franklin&1993&RnB/Soul&Sam Cooke&1998&RnB/Soul\\ \hline
+			Wolfgang A.\ Mozart&1993&Classical&Nirvana&1998&Alt.Rock/Indie\\ \hline
+			Johnny Cash&1994&Country&Beck&1998&Alt.Rock/Indie\\ \hline
+			John Mayall&1994&Blues&The Smashing Pumpkins&1998&Alt.Rock/Indie\\ \hline
+			Iron Maiden&1994&HM/HR&ABBA&1998&Pop\\ \hline
+			The Animals&1994&RocknRoll&Bob Dylan&1999&Folk\\ \hline
+			Johannes Brahms&1994&Classical&Johann Sebastian Bach&2000&Classical\\ \hline
+			Hank Williams&1995&Country&Fatboy Slim&2001&Electronica\\ \hline
+			Joan Baez&1995&Folk&Billie Holiday&2002&Jazz\\ \hline
+			Sex Pistols&1995&Punk&Black Sabbath&2002&HM/HR\\ \hline
+			Faces&1995&RocknRoll&Eminem&2002&Rap/Hip-Hop\\ \hline
+			Jimmy Cliff&1996&Reggae&Missy Elliott&2002&Rap/Hip-Hop\\ \hline
+			Willie Nelson&1997&Country&The Chemical Brothers&2002&Electronica\\ \hline
+			John Lee Hooker&1997&Blues&Sean Paul&2002&Reggae\\ \hline
+			Solomon Burke&1997&RnB/Soul&The Rolling Stones&2003&RocknRoll\\ \hline
+			Sepultura&1997&HM/HR&Justin Timberlake&2003&Pop\\ \hline
+    \end{tabular}
+\end{table} 
+\renewcommand{\arraystretch}{1.0}
+ 
 
 \subsubsection{TagClouds}
 
