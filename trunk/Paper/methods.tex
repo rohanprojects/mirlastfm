@@ -5,11 +5,20 @@ Der implementierte Prototyp bezieht die Daten über die Künstler und Bands aus me
 \subsection{Datenquellen}
 
 \subsubsection{LastFM}
-Verwendet für Albeninfos für Berechnung der Wirkungszeit und für TagClouds, auch als Ground-Truth für die Klassifizierung, sowie für die Berechnung der aktivsten Wirkungszeit eines Künstlers basierend auf den Releasedates seiner Alben. Dazu braucht man einen aktiven Account und api-key,.... (JAKOB)
+
+Wie bereits in Kapitel 2 erwähnt biete LastFM eine Reihe an künstlerbezogenen Informationen. Um auf die XML-REST basierten Datenquelle zugreifen zu können wurden zwei Vorkehrungen benötigt: Erste Vorrausetzung ist ein bestehender Useraccount bei LastFM über diesen kann eine API Key\footnote{ LastFM API Key - http://www.lastfm.de/api/account} generiert und zum Zugriff auf die Web-Service Schnittstelle verwendet werden. Zweitens wurde ein frei verfügbares Java Binding für LastFM\footnote{LastFM API Bindings for Java - http://u-mass.de/lastfm} eingesetzt. Die Bibliothek wurde als Quellcode ins Projekt eingebunden und für die Extraktion folgender Informationskategorieren adaptiert. 
+
+Eine große informationskategorie in LastFM sind Tag-Clouds. Als Tag Clouds wird eine beliebige Sammlung an nicht hierarchisch organisierten, User-generierten Begriffen bezeichnet, die eine Entität, in diesem Fall einen Artist, beschreiben. Die API liefert die Top 100 Tags zu jedem Artist samt deren Gewichtung im Wertebericht zwischen $[0;100]$. Diese gibt den Bedeutungsgrad eines Tags für einen Artist wieder. Manche Tags wie Rock sind einer Vielzahl an Künstler zugeordnet und andere kommen sehr selten aus. Die Kombination dieser Tag Cloud soll im besten Falle den Artist eindeutig identifizierbar und durch maschinenlernbare Systeme klassifizierbar machen. 
+
+Als Vorverarbeitungsschritt wurden die User-generierten Tags hinsichtlich ihrer Bedeutung gefiltert. Alle Tags die den Namen oder einen Substring des Namens des Künstlers beinhalteten wurden entfernt. Am Beispiel Fall Foo Fighters wurden etwa die Terms Foo, Fighters, foofighters und Foo Fighters entfernt. Diese Maßnahme trägt dem Gedanken Rechnung, das der eindeutige Name einer Band kein wiederkehrendes Tag bei anderen Artists sein kann und daher nicht zur Ähnlichkeitsberechnung beiträgt. 
 
 
 \subsubsection{Google}
-TagClouds durch Termfrequency
+Um die Ergebnisse einer Ähnlichkeitsberechung auf Basis der LastFM Tag Cloud besser interpretieren zu können, wurde die Tags durch eine Term Count innerhalb der ersten 100 Google Pagehits zu einer Suchanfrage mit dem Namen des jeweiligen Künstler neu gewichtet. Die Erwartung ist, das eine Ähnlichkeitsberechnung auf Basis der unmoderierte Google Suchergebnis schlechtere Ergebnisse liefert. 
+
+Die Google Suchanfrage wurde mit einer modifizierten UrlRetriever Klasse des CoMIRVA Frameworks ausgeführt. Für jeden Künstler wurde im Ordner {data/download} ein Verzeichnis erstellt und ein url.dat Textfile angelegt, dass in Zeilen die ersten 50 Urls listet. Ein eigens implementierter UrlDownloader liest diesen Index und lädt die pages aus dem Internet in das jeweilige Artistverzeichnis. 
+
+Als Vorverarbeitungsschritt wurden HTML-Tags und Scriptteile entfernt allerdings kein Stemming durchgeführt. Die bestehende LastFMTagCloud eines Artists wurde daraufhin dupliziert und mit dem Term Count neu gewichtet. Anschließend wurde ebenso wie bei der ursprünglichen LastFM Gewichtung die Tags wieder auf $[0;100]$ normalisiert. 
 
 \subsection{Feature Extraction}
 \subsubsection{Albumbasierte Wirkungszeit} \label{feature_wirkungszeit}
