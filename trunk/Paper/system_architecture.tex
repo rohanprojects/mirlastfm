@@ -1,5 +1,47 @@
 \section{Systemarchitektur}
 
-\subsection{Tools und Frameworks}
+Bei der Implementierungsarbeit zum Projekt wurde auf eine schlanke, modular gekapselte und erweiterbare Systemarchitektur zur Erfassung, Verarbeitung und Analyse der Daten aus verschiedenen Musikinformationsquellen geachtet. Aufgrund der einfach zu handhabenden prototypischen Entwicklung und gute Unterstützung durch Open Source Bibliotheken von Drittherstellern wurde Java innerhalb Eclipse IDE als Zielsprache gewählt. 
+
+
+\subsection{MIR Framework}
+
+Der Hauptanteil der Entwicklung fokusiert sich auf die Datenerfassung und Aufbereitung verschiedenster deskriptiver und numerischer Eigenschaften aus unterschiedlichsten Datenquellen zu einer Künstler Entität \texttt{MirArtist}. Abb.~\ref{fig:systemarchitecture} zeigt die Grundzüge der Systemarchitektur, die in fünf Ebenen gegliedert ist. Neben der Datenerfassung, Informationsextraktion und Ähnlichkeitsberechung wurde auch Wert auf die visuelle Aufbereitung der Ergebnisse in Form von Charts, Netzwerkgraphen und Clustern gelegt. Drei heterogene \textbf{Datenquellen} wurden zur Erfassung von künstlerbezogenen Features herangezogen:
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/systemarchitecture.png} % \textwidth
+	\caption{System Architektur des im Rahmen des Projekts entwickelten MIR Frameworks}
+	\label{fig:systemarchitecture}
+\end{figure} 
+
+
+\begin{itemize}
+	\item \textbf{Artist-Genre Mapping:} Das Textfile-basierte Mapping von 224 Künstlern (je 11 in 14 Genres) war Teil der Übungsbeschreibung.
+	\item \textbf{LastFM API:} Die API zu dem Musikportal LastFM war die Hauptquelle zur Erfassung vieler künstlerbezogener Daten wie etwa TopTags, Album Release Dates, Auftrittsorte (Events und Venues). Für die SOAP-basierte Schnittstelle stand eine Java-Bibliothek zur Verfügung. Diese wurde modifiziert um neben den Top Tags auch die Tag-Gewichte für akkurater Ähnlichkeitsberechungen erfassen zu können.
+	\item \textbf{Search Engine Queries:} Um einen Vergleich zwischen den Ähnlichkeiten der Community-basierten LastFM Platform und einer nicht Benutzergetrieben Datenqueller herstellen zu können, wurde ein dem CoMIRVA Framework angelehnter \texttt{UrlRetriever} für Suchmaschinenabfragen implementiert, der auf Basis der ersten $N$ Linkresultate in Google ein UrlDownloader zum Download der Pages anregt.
+\end{itemize}
+
+Auf Ebene der \textbf{Featureextraktion} wurde eine Basisklasse \texttt{Feature} eingeführt, die die Heterogenität der künstlerbezogenen Eigenschaften wie Genrezugehörigkeit, listenbasierter Tag-Wolken und Schaffensperiode aus den Grunddaten extrahiert. Dese Features können nicht direkt instanziert werden, sondern werden durch eine \texttt{FeatureFactory}, die den Zugriff zum Datenlayer kapselt, generiert. Jedes abstrakte Feature kann anschließend unter einem gemeinsamen Interface beim zugehörigen Artist registiert werden. 
+
+Für die \textbf{Ähnlichkeitsberechung }wurde ebenfalls eine \texttt{AbstractSimilarityMeasure} Basisklasse definiert, die die Ableitung von konkreten Klassen zur Berechung von symmetrischen Ähnlichkeitsmatrizen zwischen $NxN$ Künstlern erlaubt. Jedes Ähnlichkeitsmaß weiß über den internen Aufbau eines konkreten Features Bescheid und kann auf dieses unter Zuhilfenahme einer eindeutigen FeatureID darauf zugreifen falls das Feature zuvor berechnet und registriert wurde. Abb.\ref{fig:flowchart} zeigt das Flussdiagramm einer modularen Featureaggregation innerhalb eines einzelnen Künstlern. Sofern für jedes Feature oder eine Sammmlung an Features ein entsprechendes SimilarityMeasure implementiert wurde kann ein numerische Ähnlichkeitsmatrix als normiertes \textbf{Resultat} für die textbasierte Interpretation, eine Visualisierung aber auch einen Genre-Klassifikationversuch herangezogen werden. 
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.7\textwidth]{images/flowchart.png} % \textwidth
+	\caption{Informationsextraktion - \texttt{MirArtist} vereinheitlichte Datenaggregation}
+	\label{fig:flowchart}
+\end{figure} 
+
+
+\subsection{Metriken und Tools}
+
+Im Zuge des Projekts wurden unter Verwendung einiger stark modifizierter Fremdklassen über 4000 LoC in 60 Klassen (11 Packages) entwickelt. Abb.~\ref{fig:mainclasses} zeigt in einem Abhängigkeitsgrafen die Hauptklassen rund um die \texttt{MirArtist}-Entität. Die flexible Architektur und gute Kapselung der Teilaufgaben ermöglichte ein rasches Prototyping und große Wiederverwendbarkeit vor allem des Feature Registrierungsmechanismusses und der abtrakten Klassen zur Ähnlichkeitsberechung. Die Entwicklungzeit jedes weiteren Features konnte damit drastisch gesenkt werden und ermöglichte eine umfangeiche Analyse zur Dateninterpretation, Vergleichsberechung und zu anschließenden Visualisierungs- und Klassifikationsversuchen.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.6\textwidth]{images/classes.png} % \textwidth
+	\caption{Visualisierter Abhängigkeitsgraph der Hauptklassen rund um \texttt{MirArtist}.}
+	\label{fig:mainclasses}
+\end{figure} 
+
 
 
