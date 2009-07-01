@@ -96,4 +96,36 @@ Abbildung \ref{fig:similar_genre_google} stellt die Ergebnisse für die anschließ
 Zusammenfassend kann gesagt werden, dass LastFM offenbar eine gute Tag-Basis für die Verwendung in MIR-Tasks bietet. Die Ähnlichkeitsberechnung mit diesen Daten und der Cosine-Similarity funktioniert erstaunlich gut, nimmt man die von LastFM vorgeschlagenen Ähnlichkeiten als Ground Truth. Es zeigt sich auch, dass die Tags und daraus berechneten Ähnlichkeiten eine hohe Korrelation mit tatsächlich im Web vorhandenen Informationen aufweisen. 
 
 % Genreklassifizierung basierend auf Tags mit den Top-Artists der Tags
-\subsection{Genreklassifizierung basierend auf Tags der Top-Artists}
+\subsection{Versuch zur Genreklassifizierung}
+
+Da durch das Genre-Artist Mapping eine Groundtruth für ein mögliches Genrelabeling gegeben war wurde ein Versuch zur Klassifizierung der Artists mit dem Weka Machine Learning Toolkit\footnote{Weka Toolkit - www.cs.waikato.ac.nz/ml/weka/} unternommen. Für diesen Zweck wurde neben einem CSV File Exporter auch ein Exporter für das Weka-kompatible ARFF File entwickelt. Als Datenbasis wurde die symmetrische Similarity-Matrix herangezogen. Die 224 Artists legten sowohl die Anzahl der zu klassifizierenden Testsamples als auch die Länge deren Feature-Vektor fest. Die Ähnlichkeit zu sich selbst und allen anderen Artists beschreibt die Gesamtheit des Featurevektors. 
+
+Die Resultate mit verschiedenen Klassifikatoren zeigten gute Resultate. Lazy Ibk (KNN Klassifier) klassifizierte 95\% der Samples korrekt (siehe Abb.~\ref{fig:genreclassification} für detailierte Resultate)und der viel schnellere Naive Bayes immer noch 89\%. 
+
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.5\textwidth]{images/genreclassification.png}
+	\caption{10-fold cross validation Ergebnisse der Genreklassifizierung mit dem LazyIBK KNN-Klassifikation in Weka (Default Einstellungen).}
+	\label{fig:genreclassification}
+\end{figure}
+
+Diese Vorgehensweise ist nicht ganz korrekt, da die zu klassifizierenden Entitäten direkt mit den Featurevektoren korrelieren. Das bedeutet, dass ein möglicher Klassifikator darauf trainiert werden kann genau jene eindeutige Dimension zu beachten in der der Wert 1.0 vorkommt und dies kennzeichnet den Ähnlichkeitwert des Artists zu sich selbst.  Eine bessere Vorgehensweise wäre es von den Trainingsinstanzen unabhängige Ähnlichkeiten als Features zu verwenden. Dh. es könnten die Ähnlichkeiten zu den Top 5 Artists aller 14 Genres berechnet werden. Der 70-stellige Featurevektor setzt vorraus, dass diese Artists aus dem Trainings- und Testset verschwinden, ermöglicht allerdings einen authentischen und weitreichenden Testfall mit LastFM Artists, die nicht in dem Textfile enthalten sind.
+
+\subsection{Versuch zum Genreclustering}
+Ein zweiter Versuch betraf die Eignung der LastFM Tag Cloud Artist-Ähnlichkeitsmatrix zur Berechnung von Genreclustern. Als Groundtruth wurde hier ebenfalls das Genrelabel für jeden Artist herangezogen. Die Fragestellung sollte untersuchen, ob, unter der Vorraussetzung dass 14 Genres bekannt sind, ein k-Means Clustering Verfahren mit 14 Clustern auch tatsächlich richtig gelabelte Clusterzentren findet. Abb.~\ref{fig:clustering} zeigt eine 2D-Visualisierung der Clusterzentren in Weka ML Toolkit. Abb.~\ref{fig:clustering_labels} zeigt links die 14 Genres. Die schwarzen Genrelabels wurden rechts im Ergebnis der Clusterzentrum-Labelings nicht erkannt, dafür wurden andere Labels mehrfach gefunden. 
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.75\textwidth]{images/clustering.png}
+	\caption{2D-Visualisierung der Clusterzentren in Weka ML Toolkit }
+	\label{fig:clustering}
+\end{figure}
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.4\textwidth]{images/clustering_labels.png}
+	\caption{14-means clustering - Vergleich der erwarteten und tatsächlich vergeben Genrelabels für die Clusterzentren. }
+	\label{fig:clustering_labels}
+\end{figure}
+
