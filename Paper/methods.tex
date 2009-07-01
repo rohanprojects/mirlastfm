@@ -71,14 +71,23 @@ Das in Kap.\ \ref{feature_wirkungszeit} berechnete Feature wurde für die Berechn
 Die Höhe der Ähnlichkeit wird aus der Distanz zwischen den skalaren Featurewerten zweier Künstler berechnet. Je näher sich die Features sind (ähnliche Jahreszahlen), desto geringer ist die Differenz. Folglich muss diese Distanz (nach erfolgter Normalisierung anhand der Featurewerte) invertiert werden, damit höhere Werte ein höheres Maß an Ähnlichkeit ausdrücken. Letztendlich bewegt sich diese zwischen den Werten 0.0 (keine Ähnlichkeit) und 1.0 (idente aktivste Wirkungszeit). 
 
 \subsubsection{Cosinus-Similarity}
-Ein Ma"s zur Bestimmung der "Ahnlichkeit der K"unstler in der LastFM Datenbank ist die Auswertung der Tags und ein Vergleich auf deren "Ubereinstimmung.
-Dazu wurden die Tags der K"unstler mit der API ausgelesen und anschlie"send die "Ahnlichkeit mit der aus der LV bekannten Formel der Cosine Similarity bestimmt:
+Ein Maß zur Bestimmung der Ähnlichkeit der Künstler in der LastFM Datenbank ist die Auswertung der Tags und ein Vergleich auf deren Übereinstimmung.
+Dazu wurden die Tags der K"unstler mit der API ausgelesen und anschließend die Ähnlichkeit mit der aus der LV bekannten Formel der Cosine Similarity bestimmt:
 
 \begin{equation}
 sim(a,b) = \frac{a*b}{\left|a\right|*\left|b\right|}
 \end{equation}
 
-Die API gibt auf Anfrage die Tags eines K"unstlers/Band mit einer Gewichtung zwischen 100 und 0 zur"uck. Zwei kleine Probleme traten hier aber auf: Zum werden auf jeden Fall eine Menge Tags zur"uckgegeben. Nach ein paar Versuchen wurde aber klar, dass die Tags mit Gewicht 0 nur zuf"alliger Natur sind und in die Berechnung nicht mit einzubeziehen sind (Mozart hat die Attribute \textit{psychodelic} bzw. \textit{Heavy-Metal} eher nicht verdient). Weiters lieferte unsere Wrapper-API f"ur Java leider nur die Tags, aber ohne Gewichtung. Die API musste daher geringf"ugig modifiziert werden.
+Die API gibt auf Anfrage die Tags eines Künstlers/Band mit einer Gewichtung zwischen 100 und 0 zurück. Zwei kleine Probleme traten hier aber auf: Zum werden auf jeden Fall eine Menge Tags zurückgegeben. Nach ein paar Versuchen wurde aber klar, dass die Tags mit Gewicht 0 nur zufälliger Natur sind und in die Berechnung nicht mit einzubeziehen sind (Mozart hat die Attribute \textit{psychodelic} bzw. \textit{Heavy-Metal} eher nicht verdient). Weiters lieferte unsere Wrapper-API für Java leider nur die Tags, aber ohne Gewichtung. Die API musste daher geringfügig modifiziert werden.
 
 \subsection{Visualisierung}
+Um die berechneten Ergebnisse zu veranschaulichen wurde das Java Universal Network/Graph Framework (JUNG)\footnote{JUNG - http://jung.sourceforge.net/} verwendet. Diese Software-Library visualisiert die Ähnlichkeiten zwischen den Artists (Fig.\ \ref{fig:Visualization}). Übergeben wird dem Framework eine symmetrische Ähnlichkeitsmatrix aller Künstler. Mit dem Schieberegler in unteren Teil des Fensters kann man einstellen ab welchem Ausmaß eine Ähnlichkeit visualisiert werden soll (im Beispiel 0.94). 
 
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.75\textwidth]{images/Visualization.pdf} % \textwidth
+	\caption{Visualisierung von Künstlerähnlichkeiten.}
+	\label{fig:Visualization}
+\end{figure} 
+
+Ähnlichkeiten zwischen Künstlern werden durch Verbindungslinien zwischen den Künstlern dargestellt. Die Distanz zwischen den Künstlern und die Anordnung innerhalb des Fensters spielt hingegen keine Rolle. Wesentlich ist die Clusterbildung, um Genreähnlichkeiten zu identifizieren. 
