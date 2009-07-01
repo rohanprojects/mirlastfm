@@ -1,9 +1,8 @@
 \section{Methodik der Informationsgewinnung}
 
+Der implementierte Prototyp bezieht die Daten über die Künstler und Bands aus mehreren Quellen, die im folgenden kurz umrissen werden.
 
 \subsection{Datenquellen}
-\subsubsection{Textbasiertes Genre-Artist-Mapping}
-Verwendet für...
 
 \subsubsection{LastFM}
 Verwendet für Albeninfos für Berechnung der Wirkungszeit und für TagClouds, auch als Ground-Truth für die Klassifizierung, sowie für die Berechnung der aktivsten Wirkungszeit eines Künstlers basierend auf den Releasedates seiner Alben. Dazu braucht man einen aktiven Account und api-key,.... (JAKOB)
@@ -64,6 +63,8 @@ Für die Berechnung des Features wurde von sämtlichen Releasedates ihr \textit{ar
 
 
 \subsection{Ähnlichkeitsmessungen}
+Die bestimmung der Ähnlichkeit zwischen 2 oder mehreren Künstlern ist eine sehr subjektive Aufgabe
+
 \subsubsection{Differenz von skalaren Werten}
 Das in Kap.\ \ref{feature_wirkungszeit} berechnete Feature wurde für die Berechnung des Ähnlichkeitsmaßes verwendet. Dieses soll darstellen, welche Künstler zur selben Zeit am aktivsten (hinsichtlich der produzierten Alben) waren. Optimalerweise lässt sich daraus auch eine gewisse Genreähnlichkeit der Künstler feststellen, da gewisse Genres, z.B. Electronic, Punk, etc. sehr typisch für gewisse Zeitepochen der Geschichte sind. Für Rock, Pop oder Heavy Metal trifft das kaum oder gar nicht zu.
 
@@ -77,7 +78,7 @@ Dazu wurden die Tags der K"unstler mit der API ausgelesen und anschlie"send die 
 sim(a,b) = \frac{a*b}{\left|a\right|*\left|b\right|}
 \end{equation}
 
-Die API gibt auf Anfrage die Tags eines K"unstlers/Band mit einer Gewichtung zwischen 100 und 1 zur"uck. Zwei kleine Probleme traten hier aber auf: Zum werden auf jeden Fall eine Menge Tags zur"uckgegeben. Nach ein paar Versuchen wurde aber klar, dass die Tags mit Gewicht 1 nur zuf"alliger Natur sind und in die Berechnung nicht mit einzubeziehen sind (Mozart hat die Attribute \textit{psychodelic} bzw. \textit{Heavy-Metal} eher nicht verdient). Weiters lieferte unsere Wrapper-API f"ur Java leider nur die Tags, aber ohne Gewichtung. Die API musste daher geringf"ugig modifiziert werden.
+Die API gibt auf Anfrage die Tags eines K"unstlers/Band mit einer Gewichtung zwischen 100 und 0 zur"uck. Zwei kleine Probleme traten hier aber auf: Zum werden auf jeden Fall eine Menge Tags zur"uckgegeben. Nach ein paar Versuchen wurde aber klar, dass die Tags mit Gewicht 0 nur zuf"alliger Natur sind und in die Berechnung nicht mit einzubeziehen sind (Mozart hat die Attribute \textit{psychodelic} bzw. \textit{Heavy-Metal} eher nicht verdient). Weiters lieferte unsere Wrapper-API f"ur Java leider nur die Tags, aber ohne Gewichtung. Die API musste daher geringf"ugig modifiziert werden.
 
 \subsection{Visualisierung}
 

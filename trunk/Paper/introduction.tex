@@ -1,12 +1,15 @@
 \section{Einleitung}
 
 \subsection{Aufgabenstellung}
-Wos in der Angabe steht in aller K"'urze
+Im Zuge der LV \textit{Music Information Retrieval} war der Übungsteil im Rahmen einer Gruppenarbeit zu erledigen. Kurz gefasst bestand die Aufgabe darin, ein Music Information System - in unserem Fall LastFM auf dessen Features zu untersuchen und unter dessen Zuhilfenahme Informationskategorien zu extrahieren und darauf aufbauend Features und Ähnlichkeitsmaße zu berechnen.
 
 \subsection{Zielsetzungen}
-- Contentbasierte Features extrahieren (TagClouds, Wirkungszeiten)
-- Datasourcen (LastFM, Google, Textdateien - nur ein grober Umriss!)
-- Visualisierung
-- Machine Learning LastFM TagClouds gewichtet mit LastFMRanking und mit Termfrequency von Google. 
-- Performanceunterschied (Ground Truth ist LastFM)
-- Wirkungszeit eines Künstlers anhand von Album-Releasedates (verwandt zur Epoche)
+LastFM ist ein, im Vergleich zu anderen MIS Services, relativ ausgereifter Dienst mit einer großen Useranzahl, weshalb er auch gerne für MIR-Tasks verwendet wird.
+
+Wir setzten uns zum Ziel diesesn Dienst zur Datenaggregation zu verwenden, um die gewonnen Infos in weiterer Folge zur Feature- und Ähnlichkeitsberechnung zu verwenden. Extrahiert wurden zur weiteren Verwendung die Bands hinzugefügten und gewichteten Tags sowie die Releasedaten der Alben der Künstler. Mithilfe letzerer wurden ein neu erfundenes Feature der \textit{Wirkzeit} berechnet und untersucht. Die Tags wurden zur Ähnlichkeitsberechnung von Künstlern untereinander verwendet.
+
+Zusätzlich wurden aufgrund der einfachen Zugänglichkeit der Daten mittels einer API noch allgemein im Web verfügbare Daten (mittels Google-Recherche) akkumuliert, analysiert und anschließend mit den Daten aus aus LastFM verglichen.
+
+Eine grobe Visualisierung der gewonnen Erkenntnisse sollte die Erschließbarkeit für den Nutzer unterstützen. 
+
+Zu guter Letzt wurden noch ein paar Experimente zur Genre-Klassifizierung von Künstlern aus den gewonnenen Daten vorgenommen.
