@@ -54,7 +54,46 @@ Um für die Berechnung des beschriebenen Ähnlichkeitsmaßes der Wirkungszeit von K
 
 
 % Vergleich LastFM Aehnlichkeit zu Google Aehnlichkeit
-\subsection{LastFM-Google Genreähnlichkeit}
+\subsection{Ähnlichkeit der Artists in LastFM und via Google}
+\label{similarity_results}
+Um die Ähnlichkeit von 2 Artists zueinander zu bestimmen bietet sich die bereits vorgestellte Cosinus-Ähnlichkeit an. LastFM stellt lässt die Abfrage von gewichteten Tags zu jedem Künstler in der Datenbank zu. Über die Berechnung des Winkels zwischen den beiden Featurevektoren lässt sich eine Aussage über deren Ähnlichkeit machen. Intuitiv gesprochen: Viele übereinstimmende Tags bewirken größere Ähnlichkeit.
+
+Zunächst verglichen wir stichprobenartig für ein paar wenige Künstler den Grad der Übereinstimmung mit anderen Künstlern, die LastFM als ähnliche Künstler vorschlägt. Tatsächlich konnten wir für alle diese ein hohes Maß an Übereinstimmung feststellen (Werte um 0.8 bis 0.95; 1 wäre völlige Identität). 
+
+Abbildung \ref{similarity_cash} zeigt die ähnlichsten Künstler, die einerseits LastFM aus seiner Datenbank vorschlägt und andererseits die ähnlichsten Künstler zu Johnny Cash aus dem vorgegebenen Textfile. Es überrascht nicht, dass hier eine hohe Korrelation herrscht (Willie Nelson, Kris Kristofferson, Hank Williams).
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.7\textwidth]{images/similar_cash.png}
+	\includegraphics[width=0.6\textwidth]{images/similar_cash_cosine.png}
+	\caption{Ähnlichste Künstler zu Johnny Cash aus der LastFM-Datenbank und aus dem vorgegebenen Artist-File. }
+	\label{fig:similarity_cash}
+\end{figure}
+
+In einem weiterem Experiment wollten wir überprüfen, wiesehr die den Künstlern zugeordneten Tags mit den allgemein im Web verfügbaren Beschreibungen übereinstimmen. Datenbasis war das Artist-File mit den 224 Künstlern, aus denen jeweils ein prototypischer Künstler für ein bestimmtes Genre ausgewählt  wurde. Anschließend berechneten wir die Ähnlichkeit zwischen diesen Künstlern (\ref{fig:similar_genre_lastfm}).
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.75\textwidth]{images/similar_genre_lastfm.png}
+	\caption{Die LastFM Tag-Ähnlichkeiten von 6 prototypischen Künstlern eines Genres: J.Cash: Country, B.Dylan: Folk, B.Marley: Reaggae, RollingStones: Rock'n'Roll, Eminem: Rap/HipHop; Mozart: Klassik. }
+	\label{fig:similar_genre_lastfm}
+\end{figure}
+
+Die Aufstellung stimmt mit der Intuition überein - Johnny Cash und Bob Dylan sind einander relativ ähnlich und haben mit den Rolling Stones noch mehr gemeinsam als Eminem oder Mozart. Auch bei den Ähnlichkeiten der übrigen Künstler gibt es keinen unerklärbaren Ausreißer.
+
+Nun wurden Ähnlichkeiten für dieselben Künstler aus Terms, die aus den Top50 Google-Suchergebnissen extrahiert wurden, berechnet. Wichtig ist hier anzumerken, dass hierbei die Top 100 verwendeten Tags in LastFM als Dictionary dienten. Nur diese wurden aus den Webseiten extrahiert, gezählt und gewichtet.
+
+Abbildung \ref{fig:similar_genre_google} stellt die Ergebnisse für die anschließende Ähnlichkeitsberechnung in einem Diagramm dar. Man erkennt schnell, dass die berechneten Ähnlichkeiten sehr viel mit den Ähnlichkeiten aus den LastFM-Tags gemeinsam haben. Bei Bob Dylan wird nun nicht mehr Johnny Cash, sondern die Rolling Stones als ähnlichste Entität dargestellt - wobei der Unterschied geringfügig ist. Einzig die Ähnlichkeit von Mozart zu Bob Marley wirft Fragen auf. Die Steigerung hier kann wohl als Fehler angesehen werden.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.75\textwidth]{images/similar_genre_google.png}
+	\caption{Die Google Term-Ähnlichkeiten von 6 prototypischen Künstlern eines Genres. }
+	\label{fig:similar_genre_google}
+\end{figure}
+
+
+Zusammenfassend kann gesagt werden, dass LastFM offenbar eine gute Tag-Basis für die Verwendung in MIR-Tasks bietet. Die Ähnlichkeitsberechnung mit diesen Daten und der Cosine-Similarity funktioniert erstaunlich gut, nimmt man die von LastFM vorgeschlagenen Ähnlichkeiten als Ground Truth. Es zeigt sich auch, dass die Tags und daraus berechneten Ähnlichkeiten eine hohe Korrelation mit tatsächlich im Web vorhandenen Informationen aufweisen. 
 
 % Genreklassifizierung basierend auf Tags mit den Top-Artists der Tags
 \subsection{Genreklassifizierung basierend auf Tags der Top-Artists}
